@@ -1,0 +1,227 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="squirdle.css" rel="stylesheet">
+    <title>SQUIRDLE</title>
+  </head>
+    <body>
+      <div id="wrapper">
+      <h2><u>SQUIRDLE</u> <small>(GEN 1 EDITION!)</small></h2>
+      <h3>Guess which Generation 1 Pokemon i am thinking of, you have <p id="maxGuesses">(5)</p> guesses!</h3>
+      <div id="main">
+        <form>
+        <input
+            id="text-input"
+            input type="search"
+            list="myList"
+            placeholder="Enter a Pokemon guess here..."
+            autocomplete="off"
+        />
+          <button id="check-btn" type="button" onSubmit="getRandomResult">Check</button>
+          <button id="reset-btn" type="button" value="reset" onclick="reset()">Reset</button>
+        </form>
+        <br>
+        <div id="result"></div>
+        <br>
+    </div>
+        
+        <div id="static-icons">
+          <div id="type1-icon" placeholder="">Type 1--</div>
+          <div id="type2-icon" placeholder="">Type 2--</div>
+          <div id="height-icon" placeholder="">Height(m)--</div>
+          <div id="weight-icon" placeholder="">Weight(kg)--</div>
+        </div>
+        
+          <div class="icons">
+            <div id="currentGuess"></div>
+            <div id="type-1" hidden="true"></div>
+            <div id="type-2" hidden="true"></div>
+            <div id="height" hidden="true"></div>
+            <div id="weight" hidden="true"></div>
+      </div>
+        <!--<div id="guesses">
+          <p id="guessTallyTotal"><b>Guesses so far: </b></p>
+          <p id="guessTally"></p></p>
+    </div>-->
+        
+        <br><br>
+        <div id="types">
+          <div id="Normal" class="types">Normal</div>
+          <div id="Fire" class="types">Fire</div>
+          <div id="Fighting" class="types">Fighting</div>
+          <div id="Water" class="types">Water</div>
+          <div id="Flying" class="types">Flying</div>
+          <div id="Grass" class="types">Grass</div>
+          <div id="Poison" class="types">Poison</div>
+          <div id="Electric" class="types">Electric</div>
+          <div id="Ground" class="types">Ground</div>
+          <div id="Psychic" class="types">Psychic</div>
+          <div id="Rock" class="types">Rock</div>
+          <div id="Ice" class="types">Ice</div>
+          <div id="Bug" class="types">Bug</div>
+          <div id="Dragon" class="types">Dragon</div>
+          <div id="Ghost" class="types">Ghost</div>
+          <div id="None" class="types">None</div>
+          <div id="Steel" class="types">Steel</div>
+          <div id="Fairy" class="types">Fairy</div>
+            </div>
+      <br><br><br><br><br><br>
+        
+      <datalist id="myList" display="hidden">
+        <option value="Bulbasaur">Grass, Poison, Height: 0.7m, Weight: 6.9kg</option>
+        <option value="Ivysaur">Grass, Poison, Height: 1.0m, Weight: 13.0kg</option>
+        <option value="Venusaur">Grass, Poison, Height: 2.0m, Weight: 100.0kg</option>
+        <option value="Charmander">Fire, None, Height: 0.6m, Weight: 8.5kg</option>
+        <option value="Charmeleon">Fire, None, Height: 1.1m, Weight: 19.0kg</option>
+        <option value="Charizard">Fire, Flying, Height: 1.7m, Weight: 90.5kg</option>
+        <option value="Squirtle">Water, None, Height: 0.5m, Weight: 9.0kg</option>
+        <option value="Wartortle">Water, None, Height: 1.0m, Weight: 22.5kg</option>
+        <option value="Blastoise">Water, None, Height: 1.6m, Weight: 85.5kg</option>
+        <option value="Caterpie">Bug, None, Height: 0.3m, Weight: 2.9kg</option>
+        <option value="Metapod">Bug, None, Height: 0.7m, Weight: 9.9kg</option>
+        <option value="Butterfree">Bug, Flying, Height: 1.1m, Weight: 32.0kg</option>
+        <option value="Weedle">Bug Poison, Height: 0.3m, Weight: 3.2kg</option>
+        <option value="Kakuna">Bug, Poison, Height: 0.6m, Weight: 10.0kg</option>
+        <option value="Beedrill">Bug, Poison, Height: 1.0m, Weight: 29.5kg</option>
+        <option value="Pidgey">Normal, Flying, Height: 0.3m, Weight: 1.8kg</option>
+        <option value="Pidgeotto">Normal, Flying, Height: 1.1m, Weight: 30.0kg</option>
+        <option value="Pidgeot">Normal, Flying, Height: 1.5m, Weight: 39.5kg</option>
+        <option value="Rattata">Normal, None, Height: 0.3m, Weight: 3.5kg</option>
+        <option value="Raticate">Normal, None, Height: 0.7m, Weight: 18.5kg</option>
+        <option value="Spearow">Normal, Flying, Height: 0.3m, Weight: 2.0kg</option>
+        <option value="Fearow">Normal, None, Height: 1.2m, Weight: 38.0kg</option>
+        <option value="Ekans">Poison, None, Height: 2.0m, Weight: 6.9kg</option>
+        <option value="Arbok">Poison, None, Height: 3.5m, Weight: 65.0kg</option>
+        <option value="Pikachu">Electric, None, Height: 0.4m, Weight: 6.0kg</option>
+        <option value="Raichu">Electric, None, Height: 0.8m, Weight: 30.0kg</option>
+        <option value="Sandshrew">Ground, None, Height: 0.6m, Weight: 12.0kg</option>
+        <option value="Sandslash">Ground, None, Height: 1.0m, Weight: 29.5kg</option>
+        <option value="Nidoran♀">Poison, None, Height: 0.4m, Weight: 7.0kg</option>
+        <option value="Nidorina">Poison, None, Height: 0.8m, Weight: 20.0kg</option>
+        <option value="Nidoqueen">Poison, Ground, Height: 1.3m, Weight: 60.0kg</option>
+        <option value="Nidoran♂">Poison, None, Height: 0.5m, Weight: 9.0kg</option>
+        <option value="Nidorino">Poison, None, Height: 0.9m, Weight: 19.5kg</option>
+        <option value="Nidoking">Poison, Ground, Height: 1.4m, Weight: 62.0kg</option>
+        <option value="Clefairy">Fairy, None, Height: 0.6m, Weight: 7.5kg</option>
+        <option value="Clefable">Fairy, None, Height: 1.3m, Weight: 40.0kg</option>
+        <option value="Vulpix">Fire, None, Height: 0.6m, Weight: 9.9kg</option>
+        <option value="Ninetales">Fire, None, Height: 1.1m, Weight: 19.9kg</option>
+        <option value="Jigglypuff">Normal, Fairy, Height: 0.5m, Weight: 5.5kg</option>
+        <option value="Wigglytuff">Normal, Fairy, Height: 1.0m, Weight: 12.0kg</option>
+        <option value="Zubat">Poison, Flying, Height: 0.8m, Weight: 7.5kg</option>
+        <option value="Golbat">Poison, Flying, Height: 1.6m, Weight: 55.0kg</option>
+        <option value="Oddish">Grass, Poison, Height: 0.5m, Weight: 5.4kg</option>
+        <option value="Gloom">Grass, Poison, Height: 0.8m, Weight: 8.6kg</option>
+        <option value="Vileplume">Grass, Poison, Height: 1.2m, Weight: 18.6kg</option>
+        <option value="Paras">Bug, Grass, Height: 0.3m, Weight: 5.4kg</option>
+        <option value="Parasect">Bug, Grass, Height: 1.0m, Weight: 29.5kg</option>
+        <option value="Venonat">Bug, Poison, Height: 1.0m, Weight: 30.0kg</option>
+        <option value="Venomoth">Bug, Poison, Height: 1.5m, Weight: 12.5kg</option>
+        <option value="Diglett">Ground, None, Height: 0.2m, Weight: 0.8kg</option>
+        <option value="Dugtrio">Ground, None, Height: 0.7m, Weight: 33.3kg</option>
+        <option value="Meowth">Normal, None, Height: 0.4m, Weight: 4.2kg</option>
+        <option value="Persian">Normal, None, Height: 1.0m, Weight: 32.0kg</option>
+        <option value="Psyduck">Water, None, Height: 0.8m, Weight: 19.6kg</option>
+        <option value="Golduck">Water, None, Height: 1.7m, Weight: 76.6kg</option>
+        <option value="Mankey">Fighting, None, Height: 0.5m, Weight: 28.0kg</option>
+        <option value="Primeape">Fighting, None, Height: 1.0m, Weight: 32.0kg</option>
+        <option value="Growlithe">Fire, None, Height: 0.7m, Weight: 19.0kg</option>
+        <option value="Arcanine">Fire, None, Height: 1.9m, Weight: 155.0kg</option>
+        <option value="Poliwag">Water, None, Height: 0.6m, Weight: 12.4kg</option>
+        <option value="Poliwhirl">Water, None, Height: 1.0m, Weight: 20.0kg</option>
+        <option value="Poliwrath">Water, Fighting, Height: 1.3m, Weight: 54.0kg</option>
+        <option value="Abra">Psychic, None, Height: 0.9m, Weight: 19.5kg</option>
+        <option value="Kadabra">Psychic, None, Height: 1.3m, Weight: 56.5kg</option>
+        <option value="Alakazam">Psychic, None, Height: 1.5m, Weight: 48.0kg</option>
+        <option value="Machop">Fighting, None, Height: 0.8m, Weight: 19.5kg</option>
+        <option value="Machoke">Fighting, None, Height: 1.5m, Weight: 70.5kg</option>
+        <option value="Machamp">Fighting, None, Height: 1.6m, Weight: 130.0kg</option>
+        <option value="Bellsprout">Grass, Poison, Height: 0.7m, Weight: 4.0kg</option>
+        <option value="Weepinbell">Grass, Poison, Height: 1.0m, Weight: 6.4kg</option>
+        <option value="Victreebel">Grass, Poison, Height: 1.7m, Weight: 15.5kg</option>
+        <option value="Tentacool">Water, Poison, Height: 0.9m, Weight: 45.5kg</option>
+        <option value="Tentacruel">Water, Poison, Height: 1.6m, Weight:55.0kg</option>
+        <option value="Geodude">Rock, Ground, Height: 0.4m, Weight: 20.0kg</option>
+        <option value="Graveler">Rock, Ground, Height: 1.0m, Weight: 105.0kg</option>
+        <option value="Golem">Rock, Ground, Height: 1.4m, Weight: 300.0kg</option>
+        <option value="Ponyta">Fire, None, Height: 1.0m, Weight: 30.0kg</option>
+        <option value="Rapidash">Fire, None, Height: 1.7m, Weight: 95.0kg</option>
+        <option value="Slowpoke">Water, Psychic, Height: 1.2m, Weight: 36.0kg</option>
+        <option value="Slowbro">Water, Psychic, Height: 1.6m, Weight: 78.5kg</option>
+        <option value="Magnemite">Electric, Steel, Height: 0.3m, Weight: 6.0kg</option>
+        <option value="Magneton">Electric, Steel, Height: 1.0m, Weight: 60.0kg</option>
+        <option value="Farfetch'd">Normal, Flying, Height: 0.8m, Weight: 15.0kg</option>
+        <option value="Doduo">Normal, Flying, Height: 1.4m, Weight: 39.2kg</option>
+        <option value="Dodrio">Normal, Flying, Height: 1.8m, Weight: 85.2kg</option>
+        <option value="Seel">Water, None, Height: 1.1m, Weight: 90.0kg</option>
+        <option value="Dewgong">Water, Ice, Height: 1.7m, Weight: 120.0kg</option>
+        <option value="Grimer">Poison, None, Height: 0.9m, Weight: 30.0kg</option>
+        <option value="Muk">Poison, None, Height: 1.2m, Weight: 30.0kg</option>
+        <option value="Shellder">Water, None, Height: 0.3m, Weight: 4.0kg</option>
+        <option value="Cloyster">Water, Ice, Height: 1.5m, Weight: 132.5kg</option>
+        <option value="Gastly">Ghost, Poison, Height: 1.3m, Weight: 0.1kg</option>
+        <option value="Haunter">Ghost, Poison, Height: 1.6m, Weight: 0.1kg</option>
+        <option value="Gengar">Ghost, Poison, Height: 1.5m, Weight: 40.5kg</option>
+        <option value="Onix">Rock, Ground, Height: 8.8m, Weight: 210.0kg</option>
+        <option value="Drowzee">Psychic, None, Height: 1.0m, Weight: 32.4kg</option>
+        <option value="Hypno">Psychic, None, Height: 1.6m, Weight: 75.6kg</option>
+        <option value="Krabby">Water, None, Height: 0.4m, Weight: 6.5kg</option>
+        <option value="Kingler">Water, None, Height: 1.3m, Weight: 60.0kg</option>
+        <option value="Voltorb">Electric, None, Height: 0.5m, Weight: 10.4kg</option>
+        <option value="Electrode">Electric, None, Height: 1.2m, Weight: 66.6kg</option>
+        <option value="Exeggcute">Grass, Psychic, Height: 0.4m, Weight: 2.5kg</option>
+        <option value="Exeggutor">Grass, Psychic, Height: 2.0m, Weight: 120.0kg</option>
+        <option value="Cubone">Ground, None, Height: 0.4m, Weight: 6.5kg</option>
+        <option value="Marowak">Ground, None, Height: 1.0m, Weight: 45.0kg</option>
+        <option value="Hitmonlee">Fighting, None, Height: 1.5m, Weight: 49.8kg</option>
+        <option value="Hitmonchan">Fighting, None, Height: 1.4m, Weight: 50.2kg</option>
+        <option value="Lickitung">Normal, None, Height: 1.2m, Weight: 65.5kg</option>
+        <option value="Koffing">Poison, None, Height: 0.6m, Weight: 1.0kg</option>
+        <option value="Weezing">Poison, None, Height: 1.2m, Weight: 9.5kg</option>
+        <option value="Rhyhorn">Ground, Rock, Height: 1.0m, Weight: 115.0kg</option>
+        <option value="Rhydon">Ground, Rock, Height: 1.9m, Weight: 120.0kg</option>
+        <option value="Chansey">Normal, None, Height: 1.1m, Weight: 34.6kg</option>
+        <option value="Tangela">Grass, None, Height: 1.0m, Weight: 35.0kg</option>
+        <option value="Kangaskhan">Normal, None, Height: 2.2m, Weight: 80.0kg</option>
+        <option value="Horsea">Water, None, Height: 0.4m, Weight: 8.0kg</option>
+        <option value="Seadra">Water, None, Height: 1.2m, Weight: 25.0kg</option>
+        <option value="Goldeen">Water, None, Height: 0.6m, Weight: 15.0kg</option>
+        <option value="Seaking">Water, None, Height: 1.3m, Weight: 39.0kg</option>
+        <option value="Staryu">Water, None, Height: 0.8m, Weight: 34.5kg</option>
+        <option value="Starmie">Water, Psychic, Height: 1.1m, Weight: 80.0kg</option>
+        <option value="Mr. Mime">Psychic, Fairy, Height: 1.3m, Weight: 54.5kg</option>
+        <option value="Scyther">Bug, Flying, Height: 1.5m, Weight: 56.0kg</option>
+        <option value="Jynx">Ice, Psychic, Height: 1.4m, Weight: 40.6kg</option>
+        <option value="Electabuzz">Electric, None, Height: 1.1m, Weight: 30.0kg</option>
+        <option value="Magmar">Fire, None, Height: 1.3m, Weight: 44.5kg</option>
+        <option value="Pinsir">Bug, None, Height: 1.5m, Weight: 55.0kg</option>
+        <option value="Tauros">Normal, None, Height: 1.4m, Weight: 88.4kg</option>
+        <option value="Magikarp">Water, None, Height: 0.9m, Weight: 10.0kg</option>
+        <option value="Gyarados">Water, Flying, Height: 6.5m, Weight: 235.0kg</option>
+        <option value="Lapras">Water, Ice, Height: 2.5m, Weight: 220.0kg</option>
+        <option value="Ditto">Normal, None, Height: 0.3m, Weight: 4.0kg</option>
+        <option value="Eevee">Normal, None, Height: 0.3m, Weight: 6.5kg</option>
+        <option value="Vaporeon">Water, None, Height: 1.0m, Weight: 29.0kg</option>
+        <option value="Jolteon">Electric, None, Height: 0.8m, Weight: 24.5kg</option>
+        <option value="Flareon">Fire, None, Height: 0.9m, Weight: 25.0kg</option>
+        <option value="Porygon">Normal, None, Height: 0.8m, Weight: 36.5kg</option>
+        <option value="Omanyte">Rock, Water, Height: 0.4m, Weight: 7.5g</option>
+        <option value="Omastar">Rock, Water, Height: 1.0m, Weight: 35.0kg</option>
+        <option value="Kabuto">Rock, Water, Height: 0.5m, Weight: 11.5kg</option>
+        <option value="Kabutops">Rock, Water, Height: 1.3m, Weight: 40.5kg</option>
+        <option value="Aerodactyl">Rock, Flying, Height: 1.8m, Weight: 59.0kg</option>
+        <option value="Snorlax">Normal, None, Height: 2.1m, Weight: 460.0kg</option>
+        <option value="Articuno">Ice, Flying, Height: 1.7m, Weight: 55.4kg</option>
+        <option value="Zapdos">Electric, Flying, Height: 1.6m, Weight: 52.6kg</option>
+        <option value="Moltres">Fire, Flying, Height: 2.0m, Weight: 60.0kg</option>
+        <option value="Dratini">Dragon, None, Height: 1.8m, Weight: 3.3kg</option>
+        <option value="Dragonair">Dragon, None, Height: 4.0m, Weight: 16.5kg</option>
+        <option value="Dragonite">Dragon, Flying, Height: 2.2m, Weight: 210.0kg</option>
+        <option value="Mewtwo">Psychic, None, Height: 2.0m, Weight: 122.0kg</option>
+        <option value="Mew">Psychic, None, Height: 0.4m, Weight: 4.0kg</option>
+    </datalist>
+      <script src="script.js" type="text/javascript"></script>
+      </div>
+  </body>
+</html>
