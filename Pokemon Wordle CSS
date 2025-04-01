@@ -1,0 +1,535 @@
+@media only screen and (max-width: 767px) {
+  body {
+    font-size: 12px;
+    width: 100%;
+    margin: 0;
+  }
+}
+
+#wrapper {
+   position: fixed;
+   left: 50%;
+   transform: translate(-50%, 0);
+   margin-left:auto;
+   margin-right:auto;
+   width: 767px;
+}
+
+html {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  height: 100vh;
+  width: 100vw;
+}
+
+.main {
+  position: relative;
+  max-width: 767px;
+  left: 60%;
+  top: 42%;
+}
+
+body {
+  background-color: #FAACA8;
+background-image: linear-gradient(19deg, #FAACA8 0%, #DDD6F3 100%);
+
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+h2 {
+  position: relative;
+  left: 50%;
+  transform: translate(-50%, 0);
+  text-align: center;
+  font-family: helvetica;
+  margin-top: 30px;
+  color: white;
+  margin-bottom: 10px;
+}
+
+h3 {
+  position: relative;
+  left: 50%;
+  top: 11%;
+  transform: translate(-50%, 0);
+  text-align: center;
+  font-family: helvetica;
+  margin-top: 30px;
+  color: white;
+  margin-bottom: 10px;
+}
+
+#guessTally {
+  position: relative;
+  left: 10%;
+  top: 0%;
+  transform: translate(-50%, 0);
+  text-align: center;
+  font-family: helvetica;
+  color: white;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+#guessTallyTotal {
+  position: relative;
+  left: 10%;
+  top: 100%;
+  transform: translate(-50%, 0);
+  text-align: center;
+  font-family: helvetica;
+  color: white;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+#check-btn {
+  position: relative;
+  left: 45%;
+  transform: translate(-50%, 0);
+  height: 25px;
+  width: 70px;
+  border-radius: 4px;
+  color: white;
+  background-color: #FBAB7E;
+  background-image: linear-gradient(62deg, #FBAB7E 0%, #F7CE68     100%);
+  border-width: thick;
+  border-color: white;
+}
+
+#text-input {
+  position: relative;
+  left: 50%;
+  top: 43%;
+  transform: translate(-50%, 0);
+  text-align: center;
+  width: 220px;
+  height: 23px;
+  border-radius: 2px;
+  border-color: white;
+}
+
+#result {
+  position: relative;
+  left: 50%;
+  top: 80%;
+  transform: translate(-50%, 0);
+  width: 400px;
+  height: 22px;
+  margin-top: 1%;
+  font-family: helvetica;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  text-size: 1.3em;
+}
+
+#reset-btn {
+  position: relative;
+  left: 50%;
+  transform: translate(-50%, 0);
+  height: 25px;
+  width: 70px;
+  border-radius: 4px;
+  color: white;
+  background-color: #FBAB7E;
+  background-image: linear-gradient(62deg, #FBAB7E 0%, #F7CE68     100%);
+  border-width: thick;
+  border-color: white;
+}
+
+#mylist {
+  display: hidden;
+}
+
+.icons {
+  position: relative;
+  left: 45%;
+  top: 55%;
+  transform: translate(-50%, 0);
+  font-family: helvetica;
+  font-weight: bold;
+  text-align: center;
+  display: flex;
+  color: #662d91;
+  font-size: 1.1em;
+}
+
+#currentGuess {
+  position: fixed;
+  left: 14%;
+  top: 5%;
+  text-align: center;
+  line-height: 20px;
+  height: 20px;
+  margin-top: 5px;
+  font-size: 0.9em;
+  color: #662d91;
+}
+
+#static-icons {
+    position: relative;
+    left: 74.5%;
+    transform: translate(-50%, 0);
+    font-family: helvetica;
+    font-weight: bold;
+    text-align: center;
+    display: flex;
+    color: #662d91;
+}
+
+#type1-icon, #type2-icon, #height-icon, #weight-icon {
+    padding-right: 15px;
+    padding-left: 15px;
+    background-color: white;
+    border-radius: 4px;
+    column-gap: 10px;
+  }
+
+#type-1 {
+  padding-left: 29%;
+  /*background-color: white;*/
+  border-radius: 5px;
+  column-gap: 10px;
+  width: 100px;
+  height: 20px;
+  margin-top: 5px;
+  display: hidden;
+}
+
+#type-2 {
+  /*background-color: white;*/
+  border-radius: 5px;
+  column-gap: 10px;
+  width: 100px;
+  height: 20px;
+  margin-top: 5px;
+  display: hidden;
+}
+
+#height {
+  padding-left: 0px;
+  padding-right: 15px;
+  /*background-color: white;*/
+  border-radius: 5px;
+  column-gap: 10px;
+  width: 100px;
+  height: 20px;
+  margin-top: 5px;
+  display: hidden;
+}
+
+#weight {
+  padding-right: 25px;
+  padding-left: 0px;
+  /*background-color: white;*/
+  border-radius: 5px;
+  column-gap: 10px;
+  width: 90px;
+  height: 20px;
+  margin-top: 5px;
+  display: hidden;
+}
+
+#types {
+  display: grid;
+  position: fixed;
+  left: 50%;
+  transform: translate(-50%, 0);
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1px;
+  padding-top: 70px;
+  padding-left: 0px;
+  align-items: center;
+  z-index: 3;
+}
+
+#Normal {
+  background-color: #A8A77A;
+  height: 20px;
+  width: 60px;
+  border: 2px solid white;
+  border-radius: 8px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  line-height: 20px;
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 0.9em;
+  color: #fff;
+  text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
+
+#Fire {
+  background-color: #EE8130;
+  height: 20px;
+  width: 60px;
+  border: 2px solid white;
+  border-radius: 8px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  line-height: 20px;
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 0.9em;
+  color: #fff;
+  text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
+
+#Fighting {
+  background-color: #C22E28;
+  height: 20px;
+  width: 60px;
+  border: 2px solid white;
+  border-radius: 8px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  line-height: 20px;
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 0.9em;
+  color: #fff;
+  text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
+
+#Water {
+  background-color: #6390F0;
+  height: 20px;
+  width: 60px;
+  border: 2px solid white;
+  border-radius: 8px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  line-height: 20px;
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 0.9em;
+  color: #fff;
+  text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
+
+#Flying {
+  background-color: #A98FF3;
+  height: 20px;
+  width: 60px;
+  border: 2px solid white;
+  border-radius: 8px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  line-height: 20px;
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 0.9em;
+  color: #fff;
+  text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
+
+#Grass {
+  background-color: #7AC74C;
+  height: 20px;
+  width: 60px;
+  border: 2px solid white;
+  border-radius: 8px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  line-height: 20px;
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 0.9em;
+  color: #fff;
+  text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
+
+#Poison {
+  background-color: #A33EA1;
+  height: 20px;
+  width: 60px;
+  border: 2px solid white;
+  border-radius: 8px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  line-height: 20px;
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 0.9em;
+  color: #fff;
+  text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
+
+#Electric {
+  background-color: #F7D02C;
+  height: 20px;
+  width: 60px;
+  border: 2px solid white;
+  border-radius: 8px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  line-height: 20px;
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 0.9em;
+  color: #fff;
+  text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
+
+#Ground {
+  background-color: #E2BF65;
+  height: 20px;
+  width: 60px;
+  border: 2px solid white;
+  border-radius: 8px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  line-height: 20px;
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 0.9em;
+  color: #fff;
+  text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
+
+#Psychic {
+  background-color: #F95587;
+  height: 20px;
+  width: 60px;
+  border: 2px solid white;
+  border-radius: 8px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  line-height: 20px;
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 0.9em;
+  color: #fff;
+  text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
+
+#Rock {
+  background-color: #B6A136;
+  height: 20px;
+  width: 60px;
+  border: 2px solid white;
+  border-radius: 8px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  line-height: 20px;
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 0.9em;
+  color: #fff;
+  text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
+
+#Ice {
+  background-color: #96D9D6;
+  height: 20px;
+  width: 60px;
+  border: 2px solid white;
+  border-radius: 8px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  line-height: 20px;
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 0.9em;
+  color: #fff;
+  text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
+
+#Bug {
+  background-color: #A6B91A;
+  height: 20px;
+  width: 60px;
+  border: 2px solid white;
+  border-radius: 8px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  line-height: 20px;
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 0.9em;
+  color: #fff;
+  text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
+
+#Dragon {
+  background-color: #6F35FC;
+  height: 20px;
+  width: 60px;
+  border: 2px solid white;
+  border-radius: 8px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  line-height: 20px;
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 0.9em;
+  color: #fff;
+  text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
+
+#Ghost {
+  background-color: #735797;
+  height: 20px;
+  width: 60px;
+  border: 2px solid white;
+  border-radius: 8px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  line-height: 20px;
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 0.9em;
+  color: #fff;
+  text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
+
+#None {
+  background-color: #ebe8e8;
+  height: 20px;
+  width: 60px;
+  border: 2px solid white;
+  border-radius: 8px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  line-height: 20px;
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 0.9em;
+  color: #fff;
+  text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
+
+#Steel {
+  background-color: #B7B7CE;
+  height: 20px;
+  width: 60px;
+  border: 2px solid white;
+  border-radius: 8px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  line-height: 20px;
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 0.9em;
+  color: #fff;
+  text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
+
+#Fairy {
+  background-color: #D685AD;
+  height: 20px;
+  width: 60px;
+  border: 2px solid white;
+  border-radius: 8px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  line-height: 20px;
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 0.9em;
+  color: #fff;
+  text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
