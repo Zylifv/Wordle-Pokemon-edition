@@ -19,7 +19,7 @@
             autocomplete="off"
         />
           <button id="check-btn" type="button" onSubmit="getRandomResult">Check</button>
-          <button id="reset-btn" type="button" value="reset" onclick="reset()">Reset</button>
+          
         </form>
         <br>
         <div id="result"></div>
