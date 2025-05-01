@@ -6,6 +6,7 @@
     <title>SQUIRDLE</title>
   </head>
     <body>
+      <a id="sig">- By R McGregor</a>
       <div id="wrapper">
       <h2><u>SQUIRDLE</u> <small>(GEN 1 EDITION!)</small></h2>
       <h3>Guess which Generation 1 Pokemon i am thinking of, you have <p id="maxGuesses">(5)</p> guesses!</h3>
@@ -19,33 +20,29 @@
             autocomplete="off"
         />
           <button id="check-btn" type="button" onSubmit="getRandomResult">Check</button>
-          
+          <!--<button id="reset-btn" type="button" value="reset" onclick="reset()">Reset</button>-->
         </form>
-        <br>
         <div id="result"></div>
-        <br>
-    </div>
-        
         <div id="static-icons">
-          <div id="type1-icon" placeholder="">Type 1--</div>
-          <div id="type2-icon" placeholder="">Type 2--</div>
-          <div id="height-icon" placeholder="">Height(m)--</div>
-          <div id="weight-icon" placeholder="">Weight(kg)--</div>
+          <div id="type1-icon" placeholder="">Type 1-</div>
+          <div id="type2-icon" placeholder="">Type 2-</div>
+          <div id="height-icon" placeholder="">Height(m)-</div>
+          <div id="weight-icon" placeholder="">Weight(kg)-</div>
         </div>
-        
+         <br><br><br>
           <div class="icons">
+            <br><br><br><br><br><br>
             <div id="currentGuess"></div>
-            <div id="type-1" hidden="true"></div>
-            <div id="type-2" hidden="true"></div>
-            <div id="height" hidden="true"></div>
-            <div id="weight" hidden="true"></div>
+            <div id="type-1" hidden="true"><img src="https://www.svgrepo.com/show/343068/cross-circle.svg" id="type-1" alt="Circle icon"></img></div>
+            <div id="type-2" hidden="true"><img src="https://www.svgrepo.com/show/343068/cross-circle.svg" id="type-1" id="type-2" alt="Circle icon"<img src="https://www.svgrepo.com/show/343068/cross-circle.svg" id="type-1" alt="Circle icon"></img></div>
+            <div id="height" hidden="true"><img src="https://www.svgrepo.com/show/343068/cross-circle.svg" id="type-1" id="height" alt="Circle icon"></img></div>
+            <div id="weight" hidden="true"><img src="https://www.svgrepo.com/show/343068/cross-circle.svg" id="type-1" id="weight" alt="Circle icon"></img></div>
       </div>
         <!--<div id="guesses">
           <p id="guessTallyTotal"><b>Guesses so far: </b></p>
           <p id="guessTally"></p></p>
     </div>-->
         
-        <br><br>
         <div id="types">
           <div id="Normal" class="types">Normal</div>
           <div id="Fire" class="types">Fire</div>
@@ -68,7 +65,7 @@
             </div>
       <br><br><br><br><br><br>
         
-      <datalist id="myList" display="hidden">
+      <datalist id="myList">
         <option value="Bulbasaur">Grass, Poison, Height: 0.7m, Weight: 6.9kg</option>
         <option value="Ivysaur">Grass, Poison, Height: 1.0m, Weight: 13.0kg</option>
         <option value="Venusaur">Grass, Poison, Height: 2.0m, Weight: 100.0kg</option>
@@ -190,7 +187,7 @@
         <option value="Seaking">Water, None, Height: 1.3m, Weight: 39.0kg</option>
         <option value="Staryu">Water, None, Height: 0.8m, Weight: 34.5kg</option>
         <option value="Starmie">Water, Psychic, Height: 1.1m, Weight: 80.0kg</option>
-        <option value="Mr. Mime">Psychic, Fairy, Height: 1.3m, Weight: 54.5kg</option>
+        <option value="Mr Mime">Psychic, Fairy, Height: 1.3m, Weight: 54.5kg</option>
         <option value="Scyther">Bug, Flying, Height: 1.5m, Weight: 56.0kg</option>
         <option value="Jynx">Ice, Psychic, Height: 1.4m, Weight: 40.6kg</option>
         <option value="Electabuzz">Electric, None, Height: 1.1m, Weight: 30.0kg</option>
@@ -221,6 +218,7 @@
         <option value="Mewtwo">Psychic, None, Height: 2.0m, Weight: 122.0kg</option>
         <option value="Mew">Psychic, None, Height: 0.4m, Weight: 4.0kg</option>
     </datalist>
+ 
       <script src="script.js" type="text/javascript"></script>
       </div>
   </body>
