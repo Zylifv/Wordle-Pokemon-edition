@@ -3,4 +3,4 @@ Pokemon version of Wordle, inspired by Squirdle.com
 
 Please see me CodePen below for a quick demonstration:
 
-https://codepen.io/BobbyArmac/pen/VYvLwab?editors=1111 
+https://codepen.io/BobbyArmac/full/VYvLwab 
