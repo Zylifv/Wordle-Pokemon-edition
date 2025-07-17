@@ -1,8 +1,11 @@
 const textInput = document.getElementById("text-input");
 const checkButton = document.getElementById("check-btn");
+const startBtn = document.getElementById("start-btn");
 const result = document.getElementById("result");
+const pokemonList = document.querySelectorAll(".poke_choices");
 const guessTally = document.getElementById("guessTally");
-let resetButton = document.getElementById("reset-btn");
+const datalist = document.getElementById("myList");
+const resetButton = document.getElementById("reset-btn");
 let currentGuess = document.getElementById("currentGuess");
 let maxGuesses = 4;
 let remainGuesses = maxGuesses;
@@ -916,143 +919,165 @@ const options = [
     height: 0.4,
     weight: 4.0
   }];
-const typeOneImg = document.getElementById("type-1");
-
-/*names let allows names only to be pulled from the options list and compressed into their own names array to be used in the predict text box as well as the input.value answer check.*/
-
+let currentPokemon = "";
+let currentPokemonName = "";
+let activeType1 = "";
+let activeType2 = "";
+let activeHeight = "";
+let activeWeight = "";
+let currentType1 = "";
+let currentType2 = "";
+let currentHeight = "";
+let currentWeight = "";
+let currentGuessName = `${textInput.value}`;
+let matches = "";
 let names = [...new Set(options.flatMap((o) => [o.name]))]
 let pType1 = [...new Set(options.flatMap((o) => [o.types[0]]))]
 let pType2 = [...new Set(options.flatMap((o) => [o.types[1]]))]
+let longestName = names.reduce((a, b) => a.length > b.length ? a : b);
 //flatMap takes the array object, in this case options.value and puts all the name information and puts it into a singular array. This then allows me to pull from particular sections for ease.
+const pokemonNames = options.map(o => {
+      return `<div class="poke_choices" id="${o.name}"><b style="font-size: 18px;">${o.name}</b><br>${o.types[0]}, ${o.types[1]}, Height: ${o.height}m, Weight: ${o.weight}kg</div>`;
+      });
 
-function getRandomResult() {
-  let poke = options[Math.floor(Math.random() * options.length)];
-    return poke;
-}
+//small design checks to make it easier to follow which options are currently available.
+checkButton.disabled = true;
+checkButton.style.opacity = "0.5";
+resetButton.style.opacity = "0.5";
+for (let el of pokemonList) el.style.display = "none";
 
-function newPoke() {
-  return getRandomResult().name;
-}
-
-
-/*seperated the randomResult from a function to allow for stats to be pulled at any time, such as height, types etc...*/
-let currentPokemon = getRandomResult();
-let currentPokemonName = currentPokemon.name;
-let activeType1 = currentPokemon.types[0];
-let activeType2 = currentPokemon.types[1];
-let activeHeight = currentPokemon.height;
-let activeWeight = currentPokemon.weight;
-let currentType1 = document.getElementById("type-1");
-let currentType2 = document.getElementById("type-2");
-let currentHeight = document.getElementById("height");
-let currentWeight = document.getElementById("weight");
-let currentGuessName = `${textInput.value}`;
-
+function startNewGame() {
+ resetGame();
+ textInput.disabled = false;
+ startBtn.style.opacity = "0.5";
+ startBtn.disabled = true;
+ checkButton.style.opacity = "1.0";
+ checkButton.disabled = false;
+ resetButton.style.opacity = "1.0";
+ resetButton.disabled = false;
+ //assign new pokemon to be guessed
+ let poke = options[Math.floor(Math.random() * options.length)];
+ currentPokemon = poke;
+ currentPokemonName = currentPokemon.name;
+ activeType1 = currentPokemon.types[0];
+ activeType2 = currentPokemon.types[1];
+ activeHeight = currentPokemon.height;
+ activeWeight = currentPokemon.weight;
+ currentType1 = document.getElementById("type-1");
+ currentType2 = document.getElementById("type-2");
+ currentHeight = document.getElementById("height");
+ currentWeight = document.getElementById("weight");
+};
 
 checkButton.addEventListener("click",() => {
   const regex = /[!@#$%^&*()',.?":{}|<>0-9\s]/ig;
-  let textArray = textInput.value.replace(regex,"");
-  let textArr = textArray.charAt(0).toUpperCase() + textArray.slice(1);
+  let textGuess = textInput.value.replace(regex,"");
+  let textSort = textGuess.toLowerCase();
+  let textArr = textSort.charAt(0).toUpperCase() + textSort.slice(1);
+  //allows for the guess to work regardless of how the guess was punctuated, as long as it is spelt correctly. 1MaChO2Ke! === Machoke, so it will work
+  myList.style.display = "none";
   
-   if (textArr === "") {
-      alert("Please input a value")  //stops null values
-       } else if (textArr === currentPokemonName) {
-          result.innerText = `${textArr} is correct! You win!`;
-//win condition met
-     currentType1.innerText += currentPokemon.types[0] + " " + "(✓)";
-     currentType2.innerText += currentPokemon.types[1] + " " + "(✓)";
-     currentHeight.innerText += currentPokemon.height + `m`;
-     currentWeight.innerText += currentPokemon.weight + `kg`;
-     for (let i = 0; i < iconsList.length; i++) {
-      if (activeType1 !== iconsList[i] && activeType2 !== iconsList[i]) {
-        typeIcons[i].style.backgroundColor = "Grey";
-          } else if (activeType1 === iconsList[i] && activeType2 === iconsList[i]) {
-            iconsList[currentPokemon.types[0]].style.backgroundColor != "Grey";
-            iconsList[currentPokemon.types[1]].style.backgroundColor != "Grey";
-      } 
+  if (textArr === "") {
+   alert("Please input a valid Pokemon name")  //stops null values
+   } else if (textArr === currentPokemonName) {
+     result.innerText = `${textArr} is correct! You win!`; //win condition met
+     document.getElementById("check-btn").disabled = true;
+     startBtn.disabled = false;
+     startBtn.style.opacity = "1.0";
+     checkButton.style.opacity = "0.5";
+     currentType1.innerHTML += "<div class='guess'>" + `${currentPokemon.types[0]}` + " " + "(✓)" + "</div>";
+     currentType2.innerHTML += "<div class='guess'>" + `${currentPokemon.types[1]}` + " " + "(✓)" + "</div>";
+     currentHeight.innerHTML += "<div class='guess'>" + `${currentPokemon.height}` + `m` + "</div>";
+     currentWeight.innerHTML += "<div class='guess'>" + `${currentPokemon.weight}` + `kg` + "</div>";
+     
+   for (let i = 0; i < iconsList.length; i++) {
+     if (activeType1 !== iconsList[i] && activeType2 !== iconsList[i]) {
+       typeIcons[i].style.backgroundColor = "Grey";
+       } else if (activeType1 === iconsList[i] && activeType2 === iconsList[i]) {
+         iconsList[currentPokemon.types[0]].style.backgroundColor != "Grey";
+         iconsList[currentPokemon.types[1]].style.backgroundColor != "Grey";
+       } 
      }
      //will display correct attributes on correct guess.
+   } else if (remainGuesses === 0) {
+     result.innerText = `You don't have any more guesses. The correct answer was ${currentPokemonName}!`; //game over
+     document.getElementById("maxGuesses").innerHTML = 0;
      document.getElementById("check-btn").disabled = true;
-      } else if (remainGuesses === 0) {
-         result.innerText = "You have no remaining guesses, you lose... The correct answer was" + " " + currentPokemonName + "!";
- //game over
-    document.getElementById("maxGuesses").innerHTML = 0;
-     document.getElementById("check-btn").disabled = true;
-      currentType1.innerText += type1 + '\n';
-        currentType2.innerText += type2 + '\n';
-          currentHeight.innerText += height + '\n';
-            currentWeight.innerText += weight + '\n';//stops from repeat tries
-
-   } else if (remainGuesses > 0 && textArr !== currentPokemonName) //will update based on incorrect guess 
-   { 
-  for (let i = 0; i < names.length; i++) {
-     if (textArr === names[i] && `${textArr}` !== currentPokemonName) {
-     //checks for an incorrct guess match
-      let type1 = options[i].types[0] == activeType1 ? options[i].types[0] + " " + "(✓)"
-      : options[i].types[0] == activeType2 ? options[i].types[0] + " "  + "(→)"
-      : options[i].types[0] !== activeType1 ? options[i].types[0] + " " + "(X)" 
-      : options[i].types[0] !== activeType2 ? options[i].types[0] + " " + "(X)"
-      : "(X)";
-      let type2 = options[i].types[1] == activeType2 ? options[i].types[1] + " " + "(✓)"
-      : options[i].types[1] == activeType1 ? options[i].types[1] + " " + "(←)"
-      : options[i].types[1] !== activeType2 ? options[i].types[1] + " " + "(X)"
-      : options[i].types[1] !== activeType1 ? options[i].types[1] + " " + "(X)"
-      : "(X)";
-      let height = options[i].height > currentPokemon.height ? options[i].height + "m " + "(↓)" 
-      : options[i].height < currentPokemon.height ? options[i].height + "m " + "(↑)"
-      : options[i].height === currentPokemon.height ? options[i].height + "m " + "(✓)" : options[i].height + "m " + "(X)";
-      let weight = options[i].weight > currentPokemon.weight ? options[i].weight + "kg " + "(↓)"
-      : options[i].weight < currentPokemon.weight ? options[i].weight + "kg " + "(↑)" : options[i].weight === currentPokemon.weight ? options[i].weight + "kg " + "(✓)" : options[i].weight  + "kg " + "(X)";
-      /*dont know how to implement... maybe switch/case? *SOLVED*, i used ternary conditional operators to make conditions for each outcome.*/
+     textInput.disabled = true;
+     startBtn.disabled = false;
+     startBtn.style.opacity = "1.0";
+     checkButton.style.opacity = "0.5";
+      } else if (remainGuesses > 0 && textArr !== currentPokemonName) {   //will update based on incorrect guess 
+      for (let i = 0; i < names.length; i++) {
+        if (textArr === names[i] && `${textArr}` !== currentPokemonName) {    //checks for an incorrct guess match
+        let type1 = options[i].types[0] == activeType1 ? options[i].types[0] + " " + "(✓)"
+        : options[i].types[0] == activeType2 ? options[i].types[0] + " "  + "(→)"
+        : options[i].types[0] !== activeType1 ? options[i].types[0] + " " + "(X)" 
+        : options[i].types[0] !== activeType2 ? options[i].types[0] + " " + "(X)"
+        : "(X)";
+        let type2 = options[i].types[1] == activeType2 ? options[i].types[1] + " " + "(✓)"
+        : options[i].types[1] == activeType1 ? options[i].types[1] + " " + "(←)"
+        : options[i].types[1] !== activeType2 ? options[i].types[1] + " " + "(X)"
+        : options[i].types[1] !== activeType1 ? options[i].types[1] + " " + "(X)"
+        : "(X)";
+        let height = options[i].height > currentPokemon.height ? options[i].height + "m " + "(↓)" 
+        : options[i].height < currentPokemon.height ? options[i].height + "m " + "(↑)"
+        : options[i].height === currentPokemon.height ? options[i].height + "m " + "(✓)" : options[i].height + "m " + "(X)";
+        let weight = options[i].weight > currentPokemon.weight ? options[i].weight + "kg " + "(↓)"
+        : options[i].weight < currentPokemon.weight ? options[i].weight + "kg " + "(↑)" : options[i].weight === currentPokemon.weight ? options[i].weight + "kg " + "(✓)"
+        : options[i].weight  + "kg " + "(X)";
+      //Using a ternary conditional operator to make conditions for each outcome.
        
        //will update each of the categories depending on whether or not that particular guess is right or not.
-      document.getElementById("type-1").hidden = false;
-      document.getElementById("type-2").hidden = false;
-      document.getElementById("height").hidden = false;
-      document.getElementById("weight").hidden = false;
-      currentGuess.innerText += `${textInput.value}` + '\n';
-      currentType1.innerText += type1 + '\n';
-      currentType2.innerText += type2 + '\n';
-      currentHeight.innerText += height + '\n';
-      currentWeight.innerText += weight + '\n';
+        document.getElementById("type-1").hidden = false;
+        document.getElementById("type-2").hidden = false;
+        document.getElementById("height").hidden = false;
+        document.getElementById("weight").hidden = false;
+        currentGuess.innerHTML += "<div class='guess'>" + `${textArr}` + "</div>" + '\n';
+        currentType1.innerHTML += "<div class='guess'>" + `${type1}` + "</div>" + '\n';
+        currentType2.innerHTML += "<div class='guess'>" + `${type2}` + "</div>" + '\n';
+        currentHeight.innerHTML += "<div class='guess'>" + `${height}` + "</div>" + '\n';
+        currentWeight.innerHTML += "<div class='guess'>" + `${weight}` + "</div>" + '\n';
 
-     
-      for (let i = 0; i < iconsList.length; i++) {
-        let currentPokemonGuess = options.find(({name}) => name === textArr);
-        let currentPokemonGuessInfo = JSON.stringify(currentPokemonGuess);
-        let currentPokemonGuessTypesInfo = JSON.parse(currentPokemonGuessInfo);
-        let currentPokemonGuessType1 = currentPokemonGuessTypesInfo.types[0];
-        let currentPokemonGuessType2 = currentPokemonGuessTypesInfo.types[1];
-
-         
+        for (let i = 0; i < iconsList.length; i++) {
+          let currentPokemonGuess = options.find(({name}) => name === textArr);
+          let currentPokemonGuessInfo = JSON.stringify(currentPokemonGuess);
+          let currentPokemonGuessTypesInfo = JSON.parse(currentPokemonGuessInfo);
+          let currentPokemonGuessType1 = currentPokemonGuessTypesInfo.types[0];
+          let currentPokemonGuessType2 = currentPokemonGuessTypesInfo.types[1];
      
        if (currentPokemonGuessType1 == activeType2 && currentPokemonGuessType1 == iconsList[i]) {
       typeIcons[i].style.backgroundColor = "";
      }  //If the type is correct but in the wrong column, it wont be greyed out.
-         else if (currentPokemonGuessType2 == activeType1 && currentPokemonGuessType2 == iconsList[i]) {
-      typeIcons[i].style.backgroundColor = "";
-     }  //If the type is correct but in the wrong column, it wont be greyed out.
-           else if (currentPokemonGuessType1 !== activeType1 && currentPokemonGuessType1 == iconsList[i]) {
-      typeIcons[i].style.backgroundColor = "Grey";
-     }  //Will update the types to show that the types of an incorrect guess are not relevant, visually accessible
-             else if (currentPokemonGuessType2 !== activeType2 && currentPokemonGuessType2 == iconsList[i]) {
-      typeIcons[i].style.backgroundColor = "Grey";
-     }  //Will update the types to show that the types of an incorrect guess are not relevant, visually accessible
-   }    
-             document.getElementById("maxGuesses").innerHTML = remainGuesses;
-             remainGuesses -= 1; //lowers max guesses by 1
-             document.getElementById("text-input").value = "";
-        }
-      }
+        else if (currentPokemonGuessType2 == activeType1 && currentPokemonGuessType2 == iconsList[i]) {
+       typeIcons[i].style.backgroundColor = "";
+      }  //If the type is correct but in the wrong column, it wont be greyed out.
+          else if (currentPokemonGuessType1 !== activeType1 && currentPokemonGuessType1 == iconsList[i]) {
+          typeIcons[i].style.backgroundColor = "Grey";
+        }  //Will update the types to show that the types of an incorrect guess are not relevant, visually accessible
+            else if (currentPokemonGuessType2 !== activeType2 && currentPokemonGuessType2 == iconsList[i]) {
+            typeIcons[i].style.backgroundColor = "Grey";
+          }  //Will update the types to show that the types of an incorrect guess are not relevant, visually accessible
+        }    
+            document.getElementById("maxGuesses").innerHTML = remainGuesses;
+            remainGuesses -= 1; //lowers max guesses by 1
+            document.getElementById("text-input").value = "";
+          }
+       }
     }
-  });     //above code checks and updates the relevant info according to each guess
+  });//above code checks and updates the relevant info according to each guess
   
 
-  function reset() {
-   let currentPokemon = newPoke();
+  function resetGame() {    // resets all parameters for a fresh game.
+ 
+   startBtn.style.opacity = "1.0";
+   startBtn.disabled = false;
+   checkButton.disabled = true;
+   checkButton.style.opacity = "0.5";
+   resetButton.disabled = true;
+   resetButton.style.opacity = "0.5";
    document.querySelectorAll("iconsList").hidden = true;
    document.getElementById("maxGuesses").innerHTML = 5;
-   //document.getElementById("guessTallyTotal").innerHTML = "";
    result.innerText = "";
    document.getElementById("check-btn").disabled = false;
    document.getElementById("text-input").value = "";
@@ -1061,7 +1086,6 @@ checkButton.addEventListener("click",() => {
    document.getElementById("type-2").hidden = true;
    document.getElementById("height").hidden = true;
    document.getElementById("weight").hidden = true;
-   currentPokemonName = currentPokemon.name;
    remainGuesses = 4;
    currentType1.innerText = "";
    currentType2.innerText = "";
@@ -1069,6 +1093,47 @@ checkButton.addEventListener("click",() => {
    currentWeight.innerText = "";
    currentGuess.innerText = "";
    for (let i = 0; i < iconsList.length; i++) {
-   document.querySelectorAll('.types')[i].style.backgroundColor = "";
+      document.querySelectorAll('.types')[i].style.backgroundColor = "";
     }
-}   // resets all parameters for a fresh game. Does NOT currently re-roll the getRandomResult array yet.
+}   
+
+
+myList.addEventListener("click", (e) => {
+ if (e.target.classList.contains("poke_choices")) {
+   const id = e.target.id;
+   textInput.value = id;
+   myList.style.display = "none";
+  }   /*targets all valid items with the matching className, takes their id to apply & style them dynamically, this allows the user to click the box with their desired pokemon name instead of having to type the whole word out.*/
+})
+
+function datalistMatch(e) {   //This checks for any Pokemon name that matches what the user types and updates the dropdown list options in real time.
+  let a = document.createElement("div");
+  for (let i = 0; i < options.length; i++) {
+    let dropdown = document.createElement("div");
+    let val = textInput.value;
+    let pkmnName = options[i].name;
+    let pkmnMatches = pkmnName.substr(0, val.length).toUpperCase() == val.toUpperCase() ? 1 : 0
+    let pkmnChars = pkmnName.split(" ");
+    let highlight = true;
+      for (let j = 0; j < pkmnChars.length; j++) {
+        pkmnMatches += pkmnChars[j].substr(0, val.length).toUpperCase() == val.toUpperCase() ? 1 : 0
+    }
+    if (textInput.value === "") {
+      highlight = false;
+      myList.style.display = "none";
+    }
+     if (pkmnMatches > 0 && textInput.value !== "") {
+        myList.style.display = "block";
+        dropdown.setAttribute("id", pkmnName);
+        dropdown.setAttribute("class", "poke_choices");
+        let index = pkmnName.toLowerCase().indexOf(val.toLowerCase())
+        dropdown.innerHTML = `<b style="font-size: 16px;">${pkmnName}</b>` + "<br>" + `${options[i].types[0]}, ${options[i].types[1]}, Height: ${options[i].height}m, Weight: ${options[i].weight}kg`; 
+       } else if (pkmnMatches == 0) {
+         for (const m of myList.children) {
+           myList.removeChild(m);
+         }
+      } dropdown.innerHTML += "<input type='hidden' value='pkmnName'>"
+        a.appendChild(dropdown);
+        myList.appendChild(a);
+    } 
+}
