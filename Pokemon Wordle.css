@@ -2,8 +2,8 @@
   body {
     transform: scale(0.9);
     margin: 0 auto;
-    max-width: 500px;
-    width: 500px;
+    max-width: 600px;
+    width: 600px;
   }
   #sig {
     display: flex;
@@ -12,6 +12,7 @@
     top: -5px;
   }
   #wrapper {
+    position: absolute;
     width: 500px;
     margin: 0 auto;
     margin-right: 100px;
@@ -20,15 +21,47 @@
     font-size: 0.8em;
     overflowX: hidden;
   }
+  
   .icons {
-    max-width: 500px;
-    width: 500px;
-    top: 210px;
-    padding-left: 20px;
+    position: absolute;
+    max-width: 430px;
+    top: 250px;
+    left: 150px;
   }
+  
+  #currentGuess {
+    position: absolute;
+    margin-left: 50px;
+  }
+  
+  #type-1 {
+    position: absolute;
+    margin-left: 60px;
+  }
+  
+  #type-2 {
+    position: absolute;
+    margin-left: 65px;
+  }
+  
+  #height {
+    position: absolute;
+    margin-left: 70px;
+  }
+  
+  #weight {
+    position: absolute;
+    margin-left: 75px;
+  }
+  
   #static-icons {
-    margin-left: 30px;
+    position: absolute;
+    left: 0px;
+    margin-top: -20px;
+    max-width: 450px;
   }
+  
+  
 }
 
 #wrapper {
@@ -76,6 +109,8 @@ h3 {
   position: relative;
   left: 50%;
   top: 5%;
+  font-size: 1.15em;
+  width: 700px;
   transform: translate(-50%, 0);
   text-align: center;
   font-family: helvetica;
@@ -83,10 +118,6 @@ h3 {
   color: #fff;
   text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
   margin-bottom: 10px;
-}
-
-datalist {
-  display: none;
 }
 
 #guessTally {
@@ -113,12 +144,86 @@ datalist {
   font-weight: bold;
 }
 
+#myList {
+  margin: auto;
+  position: relative;
+  margin-top: -80px;
+  width: 300px;
+  text-align: center;
+  left: 42px;
+  overflow: hidden;
+  overflow-y: scroll;
+  height: 300px;
+  z-index: 200;
+}
+
+#myList::-webkit-scrollbar {
+  display: none;
+}
+
+#myList {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.poke_choices {
+  display: block;
+  border: 1px solid #fff;
+  background-color: #f1f1f1;
+  font-family: arial;
+  font-size: 11px;
+  width: 215px;
+  height: 60px;
+  line-height: 1.6;
+  top: 10px;
+}
+
+.poke_choices:hover {
+  background-color: #98d6ae;
+}
+
+.poke_choices_bold {
+  font-weight: bold;
+  font-size: 18px;
+}
+
 #check-btn {
   position: relative;
   left: 42%;
+  top: 2px;
   transform: translate(-50%, 0);
   height: 25px;
-  width: 70px;
+  width: 90px;
+  border-radius: 4px;
+  color: white;
+  background-color: #FBAB7E;
+  background-image: linear-gradient(62deg, #FBAB7E 0%, #F7CE68     100%);
+  border-width: thick;
+  border-color: white;
+}
+
+#start-btn {
+  position: relative;
+  left: 29.8%;
+  top: -60px;
+  transform: translate(-50%, 0);
+  height: 25px;
+  width: 90px;
+  border-radius: 4px;
+  color: white;
+  background-color: #FBAB7E;
+  background-image: linear-gradient(62deg, #FBAB7E 0%, #F7CE68     100%);
+  border-width: thick;
+  border-color: white;
+}
+
+#reset-btn {
+  position: relative;
+  left: 17.5%;
+  top: -29px;
+  transform: translate(-50%, 0);
+  height: 25px;
+  width: 90px;
   border-radius: 4px;
   color: white;
   background-color: #FBAB7E;
@@ -139,9 +244,14 @@ datalist {
   border-color: white;
 }
 
+input:focus {
+  outline: none;
+}
+
 #result {
   position: relative;
-  top: 0;
+  top: 10px;
+  margin-bottom: 20px;
   left: 50%;
   transform: translate(-50%, 0);
   width: 100%;
@@ -153,21 +263,6 @@ datalist {
   font-weight: bold;
   text-align: center;
   text-size: 1.3em;
-}
-
-#reset-btn {
-  position: fixed;
-  top: 35%;
-  left: 100% /*71.2%*/;
-  transform: translate(-50%, 0);
-  height: 25px;
-  width: 70px;
-  border-radius: 4px;
-  color: white;
-  background-color: #FBAB7E;
-  background-image: linear-gradient(62deg, #FBAB7E 0%, #F7CE68     100%);
-  border-width: thick;
-  border-color: white;
 }
 
 .icons {
@@ -185,9 +280,10 @@ datalist {
 }
 
 #currentGuess {
-  position: absolute;
-  top: 20%;
-  padding-left: 3.5%;
+  position: relative;
+  margin-top: 20px;
+  top: 20px;
+  left: -3.5%;
   padding-bottom: 5%;
   border-radius: 5px;
   column-gap: 12px;
@@ -202,9 +298,16 @@ datalist {
   text-shadow: 1px 0 0 #fff, 0 -1px 0 #fff, 0 1px 0 #fff, -1px 0 0 #fff;
 }
 
+.guess {
+  background-color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  margin: 2px;
+}
+
 #static-icons {
     position: relative;
-    left: 75%;
+    left: 52.6%;
     transform: translate(-50%, 0);
     font-family: helvetica;
     font-weight: bold;
@@ -213,7 +316,7 @@ datalist {
     color: #243642;
 }
 
-#type1-icon, #type2-icon, #height-icon, #weight-icon {
+#pokemon-guess-icon, #type1-icon, #type2-icon, #height-icon, #weight-icon {
     padding-right: 15px;
     padding-left: 15px;
     background-color: white;
@@ -221,10 +324,14 @@ datalist {
     column-gap: 10px;
   }
 
+#type1-icon, #type2-icon {
+  width: 70px;
+}
+
 #type-1 {
   position: absolute;
-  top: 20%;
-  padding-left: 20.5%;
+  top: 18px;
+  left: 16%;
   padding-bottom: 5%;
   border-radius: 5px;
   column-gap: 12px;
@@ -241,10 +348,9 @@ datalist {
 
 #type-2 {
   position: absolute;
-  top: 20%;
-  padding-left: 34.5%;
+  top: 18px;
+  left: 33.5%;
   padding-bottom: 5%;
-  /*background-color: white;*/
   border-radius: 5px;
   column-gap: 12px;
   margin-bottom: 10px;
@@ -260,9 +366,8 @@ datalist {
 
 #height {
   position: absolute;
-  top: 20%;
-  padding-left: 51.5%;
-  /*background-color: white;*/
+  top: 18px;
+  left: 52%;
   border-radius: 5px;
   column-gap: 10px;
   width: 90px;
@@ -277,12 +382,11 @@ datalist {
 
 #weight {
   position: absolute;
-  top: 20%;
-  padding-left: 69.5%;
-  /*background-color: white;*/
+  top: 18px;
+  left: 71%;
   border-radius: 5px;
   column-gap: 10px;
-  width: 90px;
+  width: 100px;
   height: 15px;
   line-height: 18px;
   margin-top: 7px;
