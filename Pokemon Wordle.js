@@ -1114,12 +1114,10 @@ function datalistMatch(e) {   //This checks for any Pokemon name that matches wh
     let pkmnName = options[i].name;
     let pkmnMatches = pkmnName.substr(0, val.length).toUpperCase() == val.toUpperCase() ? 1 : 0
     let pkmnChars = pkmnName.split(" ");
-    let highlight = true;
       for (let j = 0; j < pkmnChars.length; j++) {
         pkmnMatches += pkmnChars[j].substr(0, val.length).toUpperCase() == val.toUpperCase() ? 1 : 0
     }
     if (textInput.value === "") {
-      highlight = false;
       myList.style.display = "none";
     }
      if (pkmnMatches > 0 && textInput.value !== "") {
