@@ -919,6 +919,80 @@ const options = [
     height: 0.4,
     weight: 4.0
   }];
+const pokemonTypeColors = [
+  {
+    name: "Normal",
+    color: "#A8A77A"
+  },
+  {
+    name: "Fire",
+    color: "#EE8130"
+  },
+  {
+    name: "Fighting",
+    color: "#C22E28"
+  },
+  {
+    name: "Water",
+    color: "#6390F0"
+  },
+  {
+    name: "Flying",
+    color: "#A98FF3"
+  },
+  {
+    name: "Grass",
+    color: "#7AC74C"
+  },
+  {
+    name: "Poison",
+    color: "#A33EA1"
+  },
+  {
+    name: "Electric",
+    color: "#F7D02C"
+  },
+  {
+    name: "Ground",
+    color: "#E2BF65"
+  },
+  {
+    name: "Psychic",
+    color: "#F95587"
+  },
+  {
+    name: "Rock",
+    color: "#B6A136"
+  },
+  {
+    name: "Ice",
+    color: "#96D9D6"
+  },
+  {
+    name: "Bug",
+    color: "#A6B91A"
+  },
+  {
+    name: "Dragon",
+    color: "#6F35FC"
+  },
+  {
+    name: "Ghost",
+    color: "#735797"
+  },
+  {
+    name: "None",
+    color: "#ebe8e8"
+  },
+  {
+    name: "Steel",
+    color: "#B7B7CE"
+  },
+  {
+    name: "Fairy",
+    color: "#D685AD"
+  }
+];
 let currentPokemon = "";
 let currentPokemonName = "";
 let activeType1 = "";
@@ -955,6 +1029,8 @@ function startNewGame() {
  checkButton.disabled = false;
  resetButton.style.opacity = "1.0";
  resetButton.disabled = false;
+ result.style.backgroundColor = "";
+ result.style.border = "";
  //assign new pokemon to be guessed
  let poke = options[Math.floor(Math.random() * options.length)];
  currentPokemon = poke;
@@ -967,13 +1043,14 @@ function startNewGame() {
  currentType2 = document.getElementById("type-2");
  currentHeight = document.getElementById("height");
  currentWeight = document.getElementById("weight");
+  console.log(currentPokemonName);
 };
 
 checkButton.addEventListener("click",() => {
   const regex = /[!@#$%^&*()',.?":{}|<>0-9]/ig;
   let textGuess = textInput.value.replace(regex,"");
   let textSort = textGuess.toLowerCase();
-  let textArr = textSort.charAt(0).toUpperCase() + textSort.slice(1);
+  let textArr = textSort.charAt(0).toUpperCase() + textSort.slice(1).trim();
   //allows for the guess to work regardless of how the guess was punctuated, as long as it is spelt correctly. 1MaChO2Ke! === Machoke, so it will work
   myList.style.display = "none";
   
@@ -981,10 +1058,17 @@ checkButton.addEventListener("click",() => {
    alert("Please input a valid Pokemon name")  //stops null values
    } else if (textArr === currentPokemonName) {
      result.innerText = `${textArr} is correct! You win!`; //win condition met
+     for (let i = 0; i < pokemonTypeColors.length; i++) {
+       if (pokemonTypeColors[i].name === currentPokemon.types[0]) {
+         result.style.backgroundColor = `${pokemonTypeColors[i].color}`;
+         result.style.border = "2px solid #fff";
+       }
+     }
      document.getElementById("check-btn").disabled = true;
      startBtn.disabled = false;
      startBtn.style.opacity = "1.0";
      checkButton.style.opacity = "0.5";
+     currentGuess.innerHTML += "<div class='guess'>" + `${textArr}` + "</div>" + '\n';
      currentType1.innerHTML += "<div class='guess'>" + `${currentPokemon.types[0]}` + " " + "(✓)" + "</div>";
      currentType2.innerHTML += "<div class='guess'>" + `${currentPokemon.types[1]}` + " " + "(✓)" + "</div>";
      currentHeight.innerHTML += "<div class='guess'>" + `${currentPokemon.height}` + `m` + "</div>";
@@ -1000,7 +1084,13 @@ checkButton.addEventListener("click",() => {
      }
      //will display correct attributes on correct guess.
    } else if (remainGuesses === 0) {
-     result.innerText = `You don't have any more guesses. The correct answer was ${currentPokemonName}!`; //game over
+     result.innerText = `Game over. The correct answer was ${currentPokemonName}!`; //game over
+     for (let i = 0; i < pokemonTypeColors.length; i++) {
+       if (pokemonTypeColors[i].name === currentPokemon.types[0]) {
+         result.style.backgroundColor = `${pokemonTypeColors[i].color}`;
+         result.style.border = "2px solid #fff";
+       }
+     }
      document.getElementById("maxGuesses").innerHTML = 0;
      document.getElementById("check-btn").disabled = true;
      textInput.disabled = true;
@@ -1045,6 +1135,9 @@ checkButton.addEventListener("click",() => {
           let currentPokemonGuessTypesInfo = JSON.parse(currentPokemonGuessInfo);
           let currentPokemonGuessType1 = currentPokemonGuessTypesInfo.types[0];
           let currentPokemonGuessType2 = currentPokemonGuessTypesInfo.types[1];
+//Shows Object OBJECT string info of current guess.
+//JSON.stringify takes all elements and puts them into a string so the code can read it
+//JSON.parse converts text into a readable JS object but using .types[x] i am able to target specific info     
      
        if (currentPokemonGuessType1 == activeType2 && currentPokemonGuessType1 == iconsList[i]) {
       typeIcons[i].style.backgroundColor = "";
