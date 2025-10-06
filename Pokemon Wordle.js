@@ -740,7 +740,7 @@ const options = [
     weight: 80.0
   },
   {
-    name: "Mr Mime",
+    name: "Mr mime",
     types: ["Psychic", "Fairy"],
     height: 1.3,
     weight: 54.5
@@ -970,7 +970,7 @@ function startNewGame() {
 };
 
 checkButton.addEventListener("click",() => {
-  const regex = /[!@#$%^&*()',.?":{}|<>0-9\s]/ig;
+  const regex = /[!@#$%^&*()',.?":{}|<>0-9]/ig;
   let textGuess = textInput.value.replace(regex,"");
   let textSort = textGuess.toLowerCase();
   let textArr = textSort.charAt(0).toUpperCase() + textSort.slice(1);
