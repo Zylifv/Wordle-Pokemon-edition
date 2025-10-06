@@ -29,6 +29,10 @@
     left: 150px;
   }
   
+  #result {
+    max-height: 30px;
+  }
+  
   #currentGuess {
     position: absolute;
     margin-left: 50px;
@@ -59,9 +63,29 @@
     left: 0px;
     margin-top: -20px;
     max-width: 450px;
+    margin-bottom: 10px;
   }
-  
-  
+}
+
+:root {
+  --Normal: #A8A77A;
+  --Fire: #EE8130;
+  --Fighting: #C22E28;
+  --Water: #6390F0;
+  --Flying: #A98FF3;
+  --Grass: #7AC74C;
+  --Poison: #A33EA1;
+  --Electric: #F7D02C;
+  --Ground: #E2BF65;
+  --Psychic: #F95587;
+  --Rock: #B6A136;
+  --Ice: #96D9D6;
+  --Bug: #A6B91A;
+  --Dragon: #6F35FC;
+  --Ghost: #735797;
+  --None: #ebe8e8;
+  --Steel: #B7B7CE;
+  --Fairy: #D685AD;
 }
 
 #wrapper {
@@ -118,6 +142,10 @@ h3 {
   color: #fff;
   text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
   margin-bottom: 10px;
+}
+
+#maxGuesses {
+  font-size: 1.4em;
 }
 
 #guessTally {
@@ -250,19 +278,22 @@ input:focus {
 
 #result {
   position: relative;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   top: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   left: 50%;
   transform: translate(-50%, 0);
-  width: 100%;
-  height: 40px;
+  width: 280px;
+  height: 45px;
   margin-top: 1%;
   font-family: helvetica;
   color: #fff;
   text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
   font-weight: bold;
-  text-align: center;
-  text-size: 1.3em;
+  font-size: 1em;
 }
 
 .icons {
@@ -314,6 +345,7 @@ input:focus {
     text-align: center;
     display: flex;
     color: #243642;
+    
 }
 
 #pokemon-guess-icon, #type1-icon, #type2-icon, #height-icon, #weight-icon {
@@ -351,6 +383,7 @@ input:focus {
   top: 18px;
   left: 33.5%;
   padding-bottom: 5%;
+  /*background-color: white;*/
   border-radius: 5px;
   column-gap: 12px;
   margin-bottom: 10px;
@@ -368,6 +401,7 @@ input:focus {
   position: absolute;
   top: 18px;
   left: 52%;
+  /*background-color: white;*/
   border-radius: 5px;
   column-gap: 10px;
   width: 90px;
@@ -384,6 +418,7 @@ input:focus {
   position: absolute;
   top: 18px;
   left: 71%;
+  /*background-color: white;*/
   border-radius: 5px;
   column-gap: 10px;
   width: 100px;
@@ -409,7 +444,7 @@ input:focus {
 }
 
 #Normal {
-  background-color: #A8A77A;
+  background-color: var(--Normal);
   height: 20px;
   width: 60px;
   border: 2px solid white;
@@ -425,7 +460,7 @@ input:focus {
 }
 
 #Fire {
-  background-color: #EE8130;
+  background-color: var(--Fire);
   height: 20px;
   width: 60px;
   border: 2px solid white;
@@ -441,7 +476,7 @@ input:focus {
 }
 
 #Fighting {
-  background-color: #C22E28;
+  background-color: var(--Fighting);
   height: 20px;
   width: 60px;
   border: 2px solid white;
@@ -457,7 +492,7 @@ input:focus {
 }
 
 #Water {
-  background-color: #6390F0;
+  background-color: var(--Water);
   height: 20px;
   width: 60px;
   border: 2px solid white;
@@ -473,7 +508,7 @@ input:focus {
 }
 
 #Flying {
-  background-color: #A98FF3;
+  background-color: var(--Flying);
   height: 20px;
   width: 60px;
   border: 2px solid white;
@@ -489,7 +524,7 @@ input:focus {
 }
 
 #Grass {
-  background-color: #7AC74C;
+  background-color: var(--Grass);
   height: 20px;
   width: 60px;
   border: 2px solid white;
@@ -505,7 +540,7 @@ input:focus {
 }
 
 #Poison {
-  background-color: #A33EA1;
+  background-color: var(--Poison);
   height: 20px;
   width: 60px;
   border: 2px solid white;
@@ -521,7 +556,7 @@ input:focus {
 }
 
 #Electric {
-  background-color: #F7D02C;
+  background-color: var(--Electric);
   height: 20px;
   width: 60px;
   border: 2px solid white;
@@ -537,7 +572,7 @@ input:focus {
 }
 
 #Ground {
-  background-color: #E2BF65;
+  background-color: var(--Ground);
   height: 20px;
   width: 60px;
   border: 2px solid white;
@@ -553,7 +588,7 @@ input:focus {
 }
 
 #Psychic {
-  background-color: #F95587;
+  background-color: var(--Psychic);
   height: 20px;
   width: 60px;
   border: 2px solid white;
@@ -569,7 +604,7 @@ input:focus {
 }
 
 #Rock {
-  background-color: #B6A136;
+  background-color: var(--Rock);
   height: 20px;
   width: 60px;
   border: 2px solid white;
@@ -585,7 +620,7 @@ input:focus {
 }
 
 #Ice {
-  background-color: #96D9D6;
+  background-color: var(--Ice);
   height: 20px;
   width: 60px;
   border: 2px solid white;
@@ -601,7 +636,7 @@ input:focus {
 }
 
 #Bug {
-  background-color: #A6B91A;
+  background-color: var(--Bug);
   height: 20px;
   width: 60px;
   border: 2px solid white;
@@ -617,7 +652,7 @@ input:focus {
 }
 
 #Dragon {
-  background-color: #6F35FC;
+  background-color: var(--Dragon);
   height: 20px;
   width: 60px;
   border: 2px solid white;
@@ -633,7 +668,7 @@ input:focus {
 }
 
 #Ghost {
-  background-color: #735797;
+  background-color: var(--Ghost);
   height: 20px;
   width: 60px;
   border: 2px solid white;
@@ -649,7 +684,7 @@ input:focus {
 }
 
 #None {
-  background-color: #ebe8e8;
+  background-color: var(--None);
   height: 20px;
   width: 60px;
   border: 2px solid white;
@@ -665,7 +700,7 @@ input:focus {
 }
 
 #Steel {
-  background-color: #B7B7CE;
+  background-color: var(--Steel);
   height: 20px;
   width: 60px;
   border: 2px solid white;
@@ -681,7 +716,7 @@ input:focus {
 }
 
 #Fairy {
-  background-color: #D685AD;
+  background-color: var(--Fairy);
   height: 20px;
   width: 60px;
   border: 2px solid white;
@@ -695,8 +730,6 @@ input:focus {
   color: #fff;
   text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
 }
-
-
 
 #sig {
   color: #fff;
