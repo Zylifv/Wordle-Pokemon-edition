@@ -7,11 +7,12 @@ const guessTally = document.getElementById("guessTally");
 const datalist = document.getElementById("myList");
 const resetButton = document.getElementById("reset-btn");
 let currentGuess = document.getElementById("currentGuess");
+let currentGenCheck = document.getElementById("gen_check");
 let maxGuesses = 4;
 let remainGuesses = maxGuesses;
 let guessTallyTotal = document.getElementById("guessTallyTotal");
 const typeIcons = document.querySelectorAll('.types');
-const iconsList = ["Normal", "Fire", "Fighting", "Water", "Flying", "Grass", "Poison", "Electric", "Ground", "Psychic", "Rock", "Ice", "Bug", "Dragon", "Ghost", "None", "Steel", "Fairy"];
+const iconsList = ["Normal", "Fire", "Fighting", "Water", "Flying", "Grass", "Poison", "Electric", "Ground", "Dark", "Psychic", "Rock", "Ice", "Bug", "Dragon", "Ghost", "None", "Steel", "Fairy"];
 const options = [
   {
     name: "Bulbasaur",
@@ -919,6 +920,608 @@ const options = [
     height: 0.4,
     weight: 4.0
   }];
+const gen2Array = [
+   {
+    name: "Chikorita",
+    types: ["Grass", "None"],
+    height: 0.9,
+    weight: 6.4
+  },
+  {
+    name: "Bayleef",
+    types: ["Grass", "None"],
+    height: 1.2,
+    weight: 15.8
+  },
+  {
+    name: "Meganium",
+    types: ["Grass", "None"],
+    height: 1.8,
+    weight: 100.5
+  },
+  {
+    name: "Cyndaquil",
+    types: ["Fire", "None"],
+    height: 0.5,
+    weight: 7.9
+  },
+  {
+    name: "Quilava",
+    types: ["Fire", "None"],
+    height: 0.9,
+    weight: 19
+  },
+  {
+    name: "Typhlosion",
+    types: ["Fire", "None"],
+    height: 1.7,
+    weight: 79.5
+  },
+  {
+    name: "Totodile",
+    types: ["Water", "None"],
+    height: 0.6,
+    weight: 9.5
+  },
+  {
+    name: "Croconaw",
+    types: ["Water", "None"],
+    height: 1.1,
+    weight: 25.0
+  },
+  {
+    name: "Feraligatr",
+    types: ["Water", "None"],
+    height: 2.3,
+    weight: 88.8
+  },
+  {
+    name: "Sentret",
+    types: ["Normal", "None"],
+    height: 0.8,
+    weight: 6.0
+  },
+  {
+    name: "Furret",
+    types: ["Normal", "None"],
+    height: 1.8,
+    weight: 32.5
+  },
+  {
+    name: "Hoothoot",
+    types: ["Normal", "Flying"],
+    height: 0.7,
+    weight: 21.2
+  },
+  {
+    name: "Noctowl",
+    types: ["Normal", "Flying"],
+    height: 1.6,
+    weight: 40.8
+  },
+  {
+    name: "Ledyba",
+    types: ["Bug", "Flying"],
+    height: 1.0,
+    weight: 10.8
+  },
+  {
+    name: "Ledian",
+    types: ["Bug", "Flying"],
+    height: 1.4,
+    weight: 35.6
+  },
+  {
+    name: "Spinarak",
+    types: ["Bug", "Poison"],
+    height: 0.5,
+    weight: 8.5
+  },
+  {
+    name: "Ariados",
+    types: ["Bug", "Poison"],
+    height: 1.1,
+    weight: 33.5
+  },
+  {
+    name: "Crobat",
+    types: ["Poison", "Flying"],
+    height: 1.8,
+    weight: 75.0
+  },
+  {
+    name: "Chinchou",
+    types: ["Water", "Electric"],
+    height: 0.5,
+    weight: 12.0
+  },
+  {
+    name: "Lanturn",
+    types: ["Water", "Electric"],
+    height: 1.2,
+    weight: 22.5
+  },
+  {
+    name: "Pichu",
+    types: ["Electric", "None"],
+    height: 0.3,
+    weight: 2.0
+  },
+  {
+    name: "Cleffa",
+    types: ["Fairy", "None"],
+    height: 0.3,
+    weight: 3.0
+  },
+  {
+    name: "Igglybuff",
+    types: ["Normal", "Fairy"],
+    height: 0.3,
+    weight: 1.0
+  },
+  {
+    name: "Togepi",
+    types: ["Fairy", "None"],
+    height: 0.3,
+    weight: 1.5
+  },
+  {
+    name: "Togetic",
+    types: ["Fairy", "Flying"],
+    height: 0.6,
+    weight: 3.2
+  },
+  {
+    name: "Natu",
+    types: ["Psychic", "Flying"],
+    height: 0.2,
+    weight: 2.0
+  },
+  {
+    name: "Xatu",
+    types: ["Psychic", "Flying"],
+    height: 1.5,
+    weight: 15.0
+  },
+  {
+    name: "Mareep",
+    types: ["Electric", "None"],
+    height: 0.6,
+    weight: 7.8
+  },
+  {
+    name: "Flaffy",
+    types: ["Electric", "None"],
+    height: 0.8,
+    weight: 13.3
+  },
+  {
+    name: "Ampharos",
+    types: ["Electric", "None"],
+    height: 1.4,
+    weight: 61.5
+  },
+  {
+    name: "Bellossom",
+    types: ["Grass", "None"],
+    height: 0.4,
+    weight: 5.8
+  },
+  {
+    name: "Marill",
+    types: ["Water", "Fairy"],
+    height: 0.4,
+    weight: 8.5
+  },
+  {
+    name: "Azumarill",
+    types: ["Water", "Fairy"],
+    height: 0.8,
+    weight: 28.5
+  },
+  {
+    name: "Sudowoodo",
+    types: ["Rock", "None"],
+    height: 1.2,
+    weight: 38.0
+  },
+  {
+    name: "Politoed",
+    types: ["Water", "None"],
+    height: 1.1,
+    weight: 33.9
+  },
+  {
+    name: "Hoppip",
+    types: ["Grass", "Flying"],
+    height: 0.4,
+    weight: 0.5
+  },
+  {
+    name: "Skiploom",
+    types: ["Grass", "Flying"],
+    height: 0.6,
+    weight: 1.0
+  },
+  {
+    name: "Jumpluff",
+    types: ["Grass", "Flying"],
+    height: 0.8,
+    weight: 3.0
+  },
+  {
+    name: "Aipom",
+    types: ["Normal", "None"],
+    height: 0.8,
+    weight: 11.5
+  },
+  {
+    name: "Sunkern",
+    types: ["Grass", "None"],
+    height: 0.3,
+    weight: 1.8
+  },
+  {
+    name: "Sunflora",
+    types: ["Grass", "None"],
+    height: 0.8,
+    weight: 8.5
+  },
+  {
+    name: "Yanma",
+    types: ["Bug", "Flying"],
+    height: 1.2,
+    weight: 38.0
+  },
+  {
+    name: "Wooper",
+    types: ["Water", "Ground"],
+    height: 0.4,
+    weight: 8.5
+  },
+  {
+    name: "Quagsire",
+    types: ["Water", "Ground"],
+    height: 1.4,
+    weight: 75.0
+  },
+  {
+    name: "Espeon",
+    types: ["Psychic", "None"],
+    height: 0.9,
+    weight: 26.5
+  },
+  {
+    name: "Umbreon",
+    types: ["Dark", "None"],
+    height: 1.0,
+    weight: 27.0
+  },
+  {
+    name: "Murkrow",
+    types: ["Dark", "Flying"],
+    height: 0.5,
+    weight: 2.1
+  },
+  {
+    name: "Slowking",
+    types: ["Water", "Psychic"],
+    height: 2.0,
+    weight: 79.5
+  },
+  {
+    name: "Misdreavus",
+    types: ["Ghost", "None"],
+    height: 0.7,
+    weight: 1.0
+  },
+  {
+    name: "Unown",
+    types: ["Psychic", "None"],
+    height: 0.5,
+    weight: 5.0
+  },
+  {
+    name: "Wobbuffet",
+    types: ["Psychic", "None"],
+    height: 1.3,
+    weight: 28.5
+  },
+  {
+    name: "Girafarig",
+    types: ["Normal", "Psychic"],
+    height: 1.5,
+    weight: 41.5
+  },
+  {
+    name: "Pineco",
+    types: ["Bug", "None"],
+    height: 0.6,
+    weight: 7.2
+  },
+  {
+    name: "Forretress",
+    types: ["Bug", "Steel"],
+    height: 1.2,
+    weight: 125.8
+  },
+  {
+    name: "Dunsparce",
+    types: ["Normal", "None"],
+    height: 1.5,
+    weight: 14.0
+  },
+  {
+    name: "Gligar",
+    types: ["Ground", "Flying"],
+    height: 1.1,
+    weight: 64.8
+  },
+  {
+    name: "Steelix",
+    types: ["Steel", "Ground"],
+    height: 9.2,
+    weight: 400.0
+  },
+  {
+    name: "Snubbull",
+    types: ["Fairy", "None"],
+    height: 0.6,
+    weight: 7.8
+  },
+  {
+    name: "Granbull",
+    types: ["Fairy", "None"],
+    height: 1.4,
+    weight: 48.7
+  },
+  {
+    name: "Qwilfish",
+    types: ["Water", "Poison"],
+    height: 0.5,
+    weight: 3.9
+  },
+  {
+    name: "Scizor",
+    types: ["Bug", "Steel"],
+    height: 1.8,
+    weight: 118.0
+  },
+  {
+    name: "Shuckle",
+    types: ["Bug", "Rock"],
+    height: 0.6,
+    weight: 20.5
+  },
+  {
+    name: "Heracross",
+    types: ["Bug", "Fighting"],
+    height: 1.5,
+    weight: 54.0
+  },
+  {
+    name: "Sneasel",
+    types: ["Dark", "Ice"],
+    height: 0.9,
+    weight: 28.0
+  },
+  {
+    name: "Teddiursa",
+    types: ["Normal", "None"],
+    height: 0.6,
+    weight: 8.8
+  },
+  {
+    name: "Ursaring",
+    types: ["Normal", "None"],
+    height: 1.8,
+    weight: 125.8
+  },
+  {
+    name: "Slugma",
+    types: ["Fire", "None"],
+    height: 0.7,
+    weight: 35.0
+  },
+  {
+    name: "Magcargo",
+    types: ["Fire", "Rock"],
+    height: 0.8,
+    weight: 55.0
+  },
+  {
+    name: "Swinub",
+    types: ["Ice", "Ground"],
+    height: 0.4,
+    weight: 6.5
+  },
+  {
+    name: "Piloswine",
+    types: ["Ice", "Ground"],
+    height: 1.1,
+    weight: 55.8
+  },
+  {
+    name: "Corsola",
+    types: ["Water", "Rock"],
+    height: 0.6,
+    weight: 5.0
+  },
+  {
+    name: "Remoraid",
+    types: ["Water", "None"],
+    height: 0.6,
+    weight: 12.0
+  },
+  {
+    name: "Octillery",
+    types: ["Water", "None"],
+    height: 0.9,
+    weight: 28.5
+  },
+  {
+    name: "Delibird",
+    types: ["Ice", "Flying"],
+    height: 0.9,
+    weight: 16.0
+  },
+  {
+    name: "Mantine",
+    types: ["Water", "Flying"],
+    height: 2.1,
+    weight: 220.0
+  },
+  {
+    name: "Skarmory",
+    types: ["Steel", "Flying"],
+    height: 1.7,
+    weight: 50.5
+  },
+  {
+    name: "Houndour",
+    types: ["Dark", "Fire"],
+    height: 0.6,
+    weight: 10.8
+  },
+  {
+    name: "Houndoom",
+    types: ["Dark", "Fire"],
+    height: 1.4,
+    weight: 35.0
+  },
+  {
+    name: "Kingdra",
+    types: ["Water", "Dragon"],
+    height: 1.8,
+    weight: 152.0
+  },
+  {
+    name: "Phanpy",
+    types: ["Ground", "None"],
+    height: 0.5,
+    weight: 33.5
+  },
+  {
+    name: "Donphan",
+    types: ["Ground", "None"],
+    height: 1.1,
+    weight: 120.0
+  },
+  {
+    name: "Porygon two",
+    types: ["Normal", "None"],
+    height: 0.6,
+    weight: 32.5
+  },
+  {
+    name: "Stantler",
+    types: ["Normal", "None"],
+    height: 1.4,
+    weight: 71.2
+  },
+  {
+    name: "Smeargle",
+    types: ["Normal", "None"],
+    height: 1.2,
+    weight: 58.0
+  },
+  {
+    name: "Tyrogue",
+    types: ["Fighting", "None"],
+    height: 0.7,
+    weight: 21.0
+  },
+  {
+    name: "Hitmontop",
+    types: ["Fighting", "None"],
+    height: 1.4,
+    weight: 48.0
+  },
+  {
+    name: "Smoochum",
+    types: ["Ice", "Psychic"],
+    height: 0.4,
+    weight: 6.0
+  },
+  {
+    name: "Elekid",
+    types: ["Electric", "None"],
+    height: 0.6,
+    weight: 23.5
+  },
+  {
+    name: "Magby",
+    types: ["Fire", "None"],
+    height: 0.7,
+    weight: 21.4
+  },
+  {
+    name: "Miltank",
+    types: ["Normal", "None"],
+    height: 1.2,
+    weight: 75.5
+  },
+  {
+    name: "Blissey",
+    types: ["Normal", "None"],
+    height: 1.5,
+    weight: 46.8
+  },
+  {
+    name: "Raikou",
+    types: ["Electric", "None"],
+    height: 1.9,
+    weight: 178.0
+  },
+  {
+    name: "Entei",
+    types: ["Fire", "None"],
+    height: 2.1,
+    weight: 198.0
+  },
+  {
+    name: "Suicune",
+    types: ["Water", "None"],
+    height: 2.0,
+    weight: 187.0
+  },
+  {
+    name: "Larvitar",
+    types: ["Rock", "Ground"],
+    height: 0.6,
+    weight: 72.0
+  },
+  {
+    name: "Pupitar",
+    types: ["Rock", "Ground"],
+    height: 1.2,
+    weight: 152.0
+  },
+  {
+    name: "Tyranitar",
+    types: ["Rock", "Ground"],
+    height: 2.0,
+    weight: 202.0
+  },
+  {
+    name: "Lugia",
+    types: ["Psychic", "Flying"],
+    height: 5.2,
+    weight: 216.0
+  },
+  {
+    name: "Ho oh",
+    types: ["Fire", "Flying"],
+    height: 3.8,
+    weight: 199.0
+  },
+  {
+    name: "Celebi",
+    types: ["Psychic", "Grass"],
+    height: 0.6,
+    weight: 5.0
+  }
+ ]
 const pokemonTypeColors = [
   {
     name: "Normal",
@@ -991,6 +1594,10 @@ const pokemonTypeColors = [
   {
     name: "Fairy",
     color: "#D685AD"
+  },
+  {
+    name: "Dark",
+    color: "#705746"
   }
 ];
 let currentPokemon = "";
@@ -1006,8 +1613,6 @@ let currentWeight = "";
 let currentGuessName = `${textInput.value}`;
 let matches = "";
 let names = [...new Set(options.flatMap((o) => [o.name]))]
-let pType1 = [...new Set(options.flatMap((o) => [o.types[0]]))]
-let pType2 = [...new Set(options.flatMap((o) => [o.types[1]]))]
 let longestName = names.reduce((a, b) => a.length > b.length ? a : b);
 //flatMap takes the array object, in this case options.value and puts all the name information and puts it into a singular array. This then allows me to pull from particular sections for ease.
 const pokemonNames = options.map(o => {
@@ -1020,6 +1625,10 @@ checkButton.style.opacity = "0.5";
 resetButton.style.opacity = "0.5";
 for (let el of pokemonList) el.style.display = "none";
 
+function genChecker() {
+  return Number(currentGenCheck.value);
+}
+
 function startNewGame() {
  resetGame();
  textInput.disabled = false;
@@ -1031,7 +1640,20 @@ function startNewGame() {
  resetButton.disabled = false;
  result.style.backgroundColor = "";
  result.style.border = "";
+ currentGenCheck.disabled = true;
+  
  //assign new pokemon to be guessed
+ if (genChecker() === 2) {  //Does player want to include more than the first gen?
+   options.length <= 151 ? options.push(...gen2Array) : ""; //adds more generations
+   remainGuesses += 1; //allows for one more guess because of the increase in pokemon options
+   document.getElementById("maxGuesses").innerHTML = 6;
+   
+ } else if (genChecker() === 1 && options.length > 151) { //otherwise, if the player changes their mind
+   options.splice(151, gen2Array.length) //splices from the final gen 1 entry
+ }
+  
+ let pType1 = [...new Set(options.flatMap((o) => [o.types[0]]))]
+ let pType2 = [...new Set(options.flatMap((o) => [o.types[1]]))]
  let poke = options[Math.floor(Math.random() * options.length)];
  currentPokemon = poke;
  currentPokemonName = currentPokemon.name;
@@ -1043,7 +1665,7 @@ function startNewGame() {
  currentType2 = document.getElementById("type-2");
  currentHeight = document.getElementById("height");
  currentWeight = document.getElementById("weight");
-  console.log(currentPokemonName);
+ console.log(currentPokemonName);
 };
 
 checkButton.addEventListener("click",() => {
@@ -1055,7 +1677,7 @@ checkButton.addEventListener("click",() => {
   myList.style.display = "none";
   
   if (textArr === "") {
-   alert("Please input a valid Pokemon name")  //stops null values
+   alert("Please input a valid Pokémon name")  //stops null values
    } else if (textArr === currentPokemonName) {
      result.innerText = `${textArr} is correct! You win!`; //win condition met
      for (let i = 0; i < pokemonTypeColors.length; i++) {
@@ -1068,6 +1690,7 @@ checkButton.addEventListener("click",() => {
      startBtn.disabled = false;
      startBtn.style.opacity = "1.0";
      checkButton.style.opacity = "0.5";
+     currentGenCheck.disabled = false;
      currentGuess.innerHTML += "<div class='guess'>" + `${textArr}` + "</div>" + '\n';
      currentType1.innerHTML += "<div class='guess'>" + `${currentPokemon.types[0]}` + " " + "(✓)" + "</div>";
      currentType2.innerHTML += "<div class='guess'>" + `${currentPokemon.types[1]}` + " " + "(✓)" + "</div>";
@@ -1097,9 +1720,10 @@ checkButton.addEventListener("click",() => {
      startBtn.disabled = false;
      startBtn.style.opacity = "1.0";
      checkButton.style.opacity = "0.5";
+     currentGenCheck.disabled = false;
       } else if (remainGuesses > 0 && textArr !== currentPokemonName) {   //will update based on incorrect guess 
-      for (let i = 0; i < names.length; i++) {
-        if (textArr === names[i] && `${textArr}` !== currentPokemonName) {    //checks for an incorrct guess match
+      for (let i = 0; i < options.length; i++) {
+        if (textArr === options[i].name && `${textArr}` !== currentPokemonName) {    //checks for an incorrct guess match
         let type1 = options[i].types[0] == activeType1 ? options[i].types[0] + " " + "(✓)"
         : options[i].types[0] == activeType2 ? options[i].types[0] + " "  + "(→)"
         : options[i].types[0] !== activeType1 ? options[i].types[0] + " " + "(X)" 
@@ -1117,7 +1741,7 @@ checkButton.addEventListener("click",() => {
         : options[i].weight < currentPokemon.weight ? options[i].weight + "kg " + "(↑)" : options[i].weight === currentPokemon.weight ? options[i].weight + "kg " + "(✓)"
         : options[i].weight  + "kg " + "(X)";
       //Using a ternary conditional operator to make conditions for each outcome.
-       
+          
        //will update each of the categories depending on whether or not that particular guess is right or not.
         document.getElementById("type-1").hidden = false;
         document.getElementById("type-2").hidden = false;
@@ -1171,6 +1795,7 @@ checkButton.addEventListener("click",() => {
    resetButton.style.opacity = "0.5";
    result.style.backgroundColor = "";
    result.style.border = "";
+   currentGenCheck.disabled = false;
    document.querySelectorAll("iconsList").hidden = true;
    document.getElementById("maxGuesses").innerHTML = 5;
    result.innerText = "";
@@ -1226,6 +1851,20 @@ function datalistMatch(e) {   //This checks for any Pokemon name that matches wh
            myList.removeChild(m);
          }
       } dropdown.innerHTML += "<input type='hidden' value='pkmnName'>"
+        
+    //currently not working as intended - IGNORE!
+        let currColor = `rgb(var(--${options[i].types[0]}))`;
+        function hexToRgb(hex, opac) {
+          let val = hex.slice(1);
+          let r = val.substring(0,2);
+          let g = val.substring(2,4);
+          let b = val.substring(4,6);
+          let rgb = `rgb(${parseInt(r, 16)},${parseInt(r, 16)},${parseInt(b, 16)}, ${opac}%)`
+          dropdown.style.backgroundColor = "rgb(" + parseInt(r, 16) + "," + parseInt(r, 16) + "," + parseInt(b, 16) + "," + opac + ")";
+        }
+         hexToRgb(currColor, 50);
+    //currently not working as intended - IGNORE!
+        
         a.appendChild(dropdown);
         myList.appendChild(a);
     } 
