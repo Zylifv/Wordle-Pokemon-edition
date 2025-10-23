@@ -1947,6 +1947,10 @@ checkButton.addEventListener("click",() => {
      startBtn.style.opacity = "1.0";
      checkButton.style.opacity = "0.5";
      currentGenCheck.disabled = false;
+     document.getElementById("type-1").hidden = false;
+     document.getElementById("type-2").hidden = false;
+     document.getElementById("height").hidden = false;
+     document.getElementById("weight").hidden = false;
      currentGuess.innerHTML += "<div class='guess'>" + `${textArr}` + "</div>" + '\n';
      currentType1.innerHTML += "<div class='guess'>" + `${currentPokemon.types[0]}` + " " + "(✓)" + "</div>";
      currentType2.innerHTML += "<div class='guess'>" + `${currentPokemon.types[1]}` + " " + "(✓)" + "</div>";
