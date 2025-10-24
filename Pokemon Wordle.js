@@ -1772,7 +1772,7 @@ const gen2Array = [
     weight: 5.0,
     generation: 2
   }
- ]
+ ];
 const pokemonTypeColors = [
   {
     name: "Normal",
@@ -1863,11 +1863,12 @@ let currentHeight = "";
 let currentWeight = "";
 let currentGuessName = `${textInput.value}`;
 let matches = "";
-let options = [...gen1Array, ...gen2Array];
-let names = [...new Set(options.flatMap((o) => [o.name]))];
+let option = [...gen1Array, ...gen2Array];
+let options;
+let names = [...new Set(option.flatMap((o) => [o.name]))];
 let longestName = names.reduce((a, b) => a.length > b.length ? a : b);
 //flatMap takes the array object, in this case options.value and puts all the name information and puts it into a singular array. This then allows me to pull from particular sections for ease.
-const pokemonNames = options.map(o => {
+const pokemonNames = option.map(o => {
       return `<div class="poke_choices" id="${o.name}"><b style="font-size: 18px;">${o.name}</b><br>${o.types[0]}, ${o.types[1]}, Height: ${o.height}m, Weight: ${o.weight}kg</div>`;
       });
 
@@ -1883,45 +1884,42 @@ function genChecker() {
   return Number(currentGenCheck.value);
 }
 
+function pokemonOptions() {
+  options = option.filter((el) => el.generation <= genChecker());
+  console.log(options.length);
+}
+
 function startNewGame() {
- resetGame();
- textInput.disabled = false;
- startBtn.style.opacity = "0.5";
- startBtn.disabled = true;
- checkButton.style.opacity = "1.0";
- checkButton.disabled = false;
- resetButton.style.opacity = "1.0";
- resetButton.disabled = false;
- result.style.backgroundColor = "";
- result.style.border = "";
- currentGenCheck.disabled = true;
- //assign new pokemon to be guessed
-  
-  //CHEATSHEET:        //WORK IN PROGRESS!
-  //Gen1 - 151
-  //Gen1to2 - 251
-  //Gen1to3 - 386
- if (genChecker() === 2) {  //Does player want to include more than the first gen?
-   options.length <= 151 ? options.push(...gen2Array) : ""; //adds more generations
-   remainGuesses += 1; //allows for one more guess because of the increase in pokemon options
-   document.getElementById("maxGuesses").innerHTML = 6;
- } else if (genChecker() === 1 && options.length > 151) { //otherwise, if the player changes their mind
-   options.splice(151, gen2Array.length) //splices from the final gen 1 entry
- }
- let pType1 = [...new Set(options.flatMap((o) => [o.types[0]]))]
- let pType2 = [...new Set(options.flatMap((o) => [o.types[1]]))]
- let poke = options[Math.floor(Math.random() * options.length)];
- currentPokemon = poke;
- currentPokemonName = currentPokemon.name;
- activeType1 = currentPokemon.types[0];
- activeType2 = currentPokemon.types[1];
- activeHeight = currentPokemon.height;
- activeWeight = currentPokemon.weight;
- currentType1 = document.getElementById("type-1");
- currentType2 = document.getElementById("type-2");
- currentHeight = document.getElementById("height");
- currentWeight = document.getElementById("weight");
- console.log(currentPokemonName);
+   resetGame();
+   textInput.disabled = false;
+   startBtn.style.opacity = "0.5";
+   startBtn.disabled = true;
+   checkButton.style.opacity = "1.0";
+   checkButton.disabled = false;
+   resetButton.style.opacity = "1.0";
+   resetButton.disabled = false;
+   result.style.backgroundColor = "";
+   result.style.border = "";
+   currentGenCheck.disabled = true;
+   pokemonOptions(); //assigns what pokemon go into the options array based on the generation picked
+ //CHEATSHEET:
+ //Gen1 - 151
+ //Gen1to2 - 251
+ //Gen1to3 - 386
+   let pType1 = [...new Set(options.flatMap((o) => [o.types[0]]))]
+   let pType2 = [...new Set(options.flatMap((o) => [o.types[1]]))]
+   let poke = options[Math.floor(Math.random() * options.length)]; //assigns a new pokemon to be guessed
+   currentPokemon = poke;
+   currentPokemonName = currentPokemon.name;
+   activeType1 = currentPokemon.types[0];
+   activeType2 = currentPokemon.types[1];
+   activeHeight = currentPokemon.height;
+   activeWeight = currentPokemon.weight;
+   currentType1 = document.getElementById("type-1");
+   currentType2 = document.getElementById("type-2");
+   currentHeight = document.getElementById("height");
+   currentWeight = document.getElementById("weight");
+   console.log(currentPokemonName);
 };
 
 checkButton.addEventListener("click",() => {
@@ -2075,6 +2073,7 @@ checkButton.addEventListener("click",() => {
    for (let i = 0; i < iconsList.length; i++) {
       document.querySelectorAll('.types')[i].style.backgroundColor = "";
     }
+   pokemonOptions();
 }   
 
 
@@ -2083,7 +2082,8 @@ myList.addEventListener("click", (e) => {
    const id = e.target.id;
    textInput.value = id;
    myList.style.display = "none";
-  }   /*targets all valid items with the matching className, takes their id to apply & style them dynamically, this allows the user to click the box with their desired pokemon name instead of having to type the whole word out.*/
+  }   /*targets all valid items with the matching className, takes their id to apply & style them dynamically,
+        this allows the user to click the box with their desired pokemon name instead of having to type the whole word out.*/
 })
 
 function datalistMatch(e) {   //This checks for any Pokemon name that matches what the user types and updates the dropdown list options in real time.
@@ -2110,7 +2110,7 @@ function datalistMatch(e) {   //This checks for any Pokemon name that matches wh
          for (const m of myList.children) {
            myList.removeChild(m);
          }
-      } dropdown.innerHTML += "<input type='hidden' value='pkmnName'>"
+      } dropdown.innerHTML += "<input type='hidden' value='pkmnName'>";
         a.appendChild(dropdown);
         myList.appendChild(a);
     } 
