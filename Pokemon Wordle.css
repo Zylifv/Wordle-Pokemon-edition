@@ -52,22 +52,32 @@
   
   #type-1 {
     position: absolute;
-    margin-left: 23px;
+    margin-left: 19px;
+    max-width: 85px;
   }
   
   #type-2 {
     position: absolute;
-    margin-left: 32px;
+    margin-left: 18px;
+    max-width: 85px;
   }
   
   #height {
     position: absolute;
-    margin-left: 43px;
+    margin-left: 22px;
+    max-width: 75px;
   }
   
   #weight {
     position: absolute;
-    margin-left: 45px;
+    margin-left: 25px;
+    max-width: 80px;
+  }
+  
+  #gen {
+    position: absolute;
+    margin-left: 27px;
+    max-width: 70px;
   }
   
   #static-icons {
@@ -351,8 +361,8 @@ input:focus {
   border-radius: 5px;
   column-gap: 12px;
   margin-bottom: 10px;
-  width: 100px;
-  height: 30px;
+  width: 105px;
+  height: 0px;
   line-height: 18px;
   margin-top: 7px;
   display: hidden;
@@ -380,7 +390,7 @@ input:focus {
     
 }
 
-#pokemon-guess-icon, #type1-icon, #type2-icon, #height-icon, #weight-icon {
+#pokemon-guess-icon, #type1-icon, #type2-icon, #gen-icon {
     padding-right: 15px;
     padding-left: 15px;
     background-color: white;
@@ -388,8 +398,20 @@ input:focus {
     column-gap: 10px;
   }
 
+#height-icon, #weight-icon {
+    padding-right: 6px;
+    padding-left: 6px;
+    background-color: white;
+    border-radius: 4px;
+    column-gap: 10px;
+}
+
 #type1-icon, #type2-icon {
   width: 70px;
+}
+
+#gen-icon {
+  width: 35px;
 }
 
 #type-1 {
@@ -432,11 +454,11 @@ input:focus {
 #height {
   position: absolute;
   top: 18px;
-  left: 52%;
+  left: 51%;
   /*background-color: white;*/
   border-radius: 5px;
   column-gap: 10px;
-  width: 90px;
+  width: 92px;
   height: 15px;
   line-height: 18px;
   margin-top: 7px;
@@ -449,11 +471,28 @@ input:focus {
 #weight {
   position: absolute;
   top: 18px;
-  left: 71%;
+  left: 67%;
   /*background-color: white;*/
   border-radius: 5px;
   column-gap: 10px;
   width: 100px;
+  height: 15px;
+  line-height: 18px;
+  margin-top: 7px;
+  display: hidden;
+  font-size: 0.9em;
+  color: #000;
+  text-shadow: 1px 0 0 #fff, 0 -1px 0 #fff, 0 1px 0 #fff, -1px 0 0 #fff;
+}
+
+#gen {
+  position: absolute;
+  top: 18px;
+  left: 84.5%;
+  /*background-color: white;*/
+  border-radius: 5px;
+  column-gap: 10px;
+  width: 60px;
   height: 15px;
   line-height: 18px;
   margin-top: 7px;
