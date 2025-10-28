@@ -1885,8 +1885,10 @@ function genChecker() {
 }
 
 function pokemonOptions() {
+  let num = genChecker();
   options = option.filter((el) => el.generation <= genChecker());
-  console.log(options.length);
+  remainGuesses = (maxGuesses + num) - 1;
+  document.getElementById("maxGuesses").innerHTML = maxGuesses + num;
 }
 
 function startNewGame() {
