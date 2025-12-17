@@ -35,10 +35,10 @@
   }
   
   .icons {
-    position: absolute;
+    position: relative;
+    margin: 5px;
+    margin-top: -25px;
     max-width: 430px;
-    top: 300px;
-    left: 150px;
   }
   
   #result {
@@ -165,11 +165,18 @@ h3 {
   margin-top: 30px;
   color: #fff;
   text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
-  margin-bottom: 10px;
+  margin-bottom: 50px;
 }
 
 #maxGuesses {
   font-size: 1.4em;
+  margin: 5px;
+}
+
+#sprite {
+  margin: auto;
+  display: flex;
+  margin-top: -35px;
 }
 
 #gen-check {
