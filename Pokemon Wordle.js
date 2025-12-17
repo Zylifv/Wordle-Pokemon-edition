@@ -2800,6 +2800,7 @@ const pokemonTypeColors = [
 ];
 let currentPokemon = "";
 let currentPokemonName = "";
+let spriteVal;
 let activeType1 = "";
 let activeType2 = "";
 let activeHeight = "";
@@ -2813,6 +2814,7 @@ let currentGen = "";
 let currentGuessName = `${textInput.value}`;
 let matches = "";
 let option = [...gen1Array, ...gen2Array, ...gen3Array];
+let spriteArray = [];
 let options;
 let names = [...new Set(option.flatMap((o) => [o.name]))];
 let longestName = names.reduce((a, b) => a.length > b.length ? a : b);
@@ -2827,6 +2829,8 @@ checkButton.style.opacity = "0.5";
 resetButton.style.opacity = "0.5";
 textInput.disabled = true;
 
+//Pokemon sprites provided by -- https://github.com/PokeAPI/sprites/tree/master
+
 for (let el of pokemonList) el.style.display = "none";
 
 function genChecker() {
@@ -2838,11 +2842,11 @@ function pokemonOptions() {
   options = option.filter((el) => el.generation <= genChecker());
   remainGuesses = (maxGuesses + num) - 1;
   document.getElementById("maxGuesses").innerHTML = maxGuesses + num;
+  console.log(options.length);
 }
 
 
 function startNewGame() {
-  
   resetGame();
   textInput.disabled = false;
   startBtn.style.opacity = "0.5";
@@ -2854,6 +2858,7 @@ function startNewGame() {
   result.style.backgroundColor = "";
   result.style.border = "";
   currentGenCheck.disabled = true;
+  document.getElementById("sprite").src = "";
   pokemonOptions(); //assigns what pokemon go into the options array based on the generation picked
  //CHEATSHEET:
  //Gen1 - 151
@@ -2861,9 +2866,11 @@ function startNewGame() {
  //Gen1to3 - 386
   let pType1 = [...new Set(options.flatMap((o) => [o.types[0]]))]
   let pType2 = [...new Set(options.flatMap((o) => [o.types[1]]))]
-  let poke = options[Math.floor(Math.random() * options.length)]; //assigns a new pokemon to be guessed
+  let poke = options[Math.floor(Math.random() * options.length)]; //assigns a new pokemon to be guessed  
   currentPokemon = poke;
   currentPokemonName = currentPokemon.name;
+  spriteVal = options.map(e => e.name).indexOf(currentPokemonName) + 1;
+  console.log(spriteVal);
   activeType1 = currentPokemon.types[0];
   activeType2 = currentPokemon.types[1];
   activeHeight = currentPokemon.height;
@@ -2874,11 +2881,11 @@ function startNewGame() {
   currentHeight = document.getElementById("height");
   currentWeight = document.getElementById("weight");
   currentGen = document.getElementById("gen");
-  console.log(currentPokemonName);
+  console.log(currentPokemonName, activeGeneration);
 };
 
 checkButton.addEventListener("click",() => {
-  const regex = /[!@#$%^&*()',.?":{}|<>0-9]/ig;
+  const regex = /[!@#$%^&*(),.?":{}|<>0-9]/ig;
   let textGuess = textInput.value.replace(regex,"");
   let textSort = textGuess.toLowerCase();
   let textArr = textSort.charAt(0).toUpperCase() + textSort.slice(1).trim();
@@ -2889,6 +2896,7 @@ checkButton.addEventListener("click",() => {
    alert("Please input a valid Pokémon name")  //stops null values
    } else if (textArr === currentPokemonName) {
      result.innerText = `${textArr} is correct! You win!`; //win condition met
+     document.getElementById("sprite").src = `https://github.com/PokeAPI/sprites/blob/master/sprites/pokemon/${spriteVal}.png?raw=true`
      for (let i = 0; i < pokemonTypeColors.length; i++) {
        if (pokemonTypeColors[i].name === currentPokemon.types[0]) {
          result.style.backgroundColor = `${pokemonTypeColors[i].color}`;
@@ -2978,6 +2986,9 @@ checkButton.addEventListener("click",() => {
           let currentPokemonGuessTypesInfo = JSON.parse(currentPokemonGuessInfo);
           let currentPokemonGuessType1 = currentPokemonGuessTypesInfo.types[0];
           let currentPokemonGuessType2 = currentPokemonGuessTypesInfo.types[1];
+//Shows Object OBJECT string info of current guess.
+//JSON.stringify takes all elements and puts them into a string so the code can read it
+//JSON.parse converts text into a readable JS object but using .types[x] i am able to target specific info     
      
        if (currentPokemonGuessType1 == activeType2 && currentPokemonGuessType1 == iconsList[i]) {
       typeIcons[i].style.backgroundColor = "";
@@ -3015,6 +3026,7 @@ checkButton.addEventListener("click",() => {
    document.querySelectorAll("iconsList").hidden = true;
    document.getElementById("maxGuesses").innerHTML = 5;
    result.innerText = "";
+   document.getElementById("sprite").src = "";
    document.getElementById("check-btn").disabled = false;
    document.getElementById("text-input").value = "";
    document.getElementById("currentGuess").value = "";
@@ -3046,6 +3058,7 @@ myList.addEventListener("click", (e) => {
 })
 
 function datalistMatch(e) {   //This checks for any Pokemon name that matches what the user types and updates the dropdown list options in real time.
+  //pokemonOptions();
   let a = document.createElement("div");
   for (let i = 0; i < options.length; i++) {
     let dropdown = document.createElement("div");
