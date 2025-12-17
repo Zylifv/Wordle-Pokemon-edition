@@ -2858,7 +2858,6 @@ function startNewGame() {
   result.style.backgroundColor = "";
   result.style.border = "";
   currentGenCheck.disabled = true;
-  document.getElementById("sprite").src = "";
   pokemonOptions(); //assigns what pokemon go into the options array based on the generation picked
  //CHEATSHEET:
  //Gen1 - 151
@@ -2870,7 +2869,7 @@ function startNewGame() {
   currentPokemon = poke;
   currentPokemonName = currentPokemon.name;
   spriteVal = options.map(e => e.name).indexOf(currentPokemonName) + 1;
-  console.log(spriteVal);
+  document.getElementById("sprite").src = `https://github.com/PokeAPI/sprites/blob/master/sprites/pokemon/${spriteVal}.png?raw=true`;
   activeType1 = currentPokemon.types[0];
   activeType2 = currentPokemon.types[1];
   activeHeight = currentPokemon.height;
@@ -2896,7 +2895,7 @@ checkButton.addEventListener("click",() => {
    alert("Please input a valid Pokémon name")  //stops null values
    } else if (textArr === currentPokemonName) {
      result.innerText = `${textArr} is correct! You win!`; //win condition met
-     document.getElementById("sprite").src = `https://github.com/PokeAPI/sprites/blob/master/sprites/pokemon/${spriteVal}.png?raw=true`
+     document.getElementById("sprite").style.display = "block";
      for (let i = 0; i < pokemonTypeColors.length; i++) {
        if (pokemonTypeColors[i].name === currentPokemon.types[0]) {
          result.style.backgroundColor = `${pokemonTypeColors[i].color}`;
@@ -3026,7 +3025,7 @@ checkButton.addEventListener("click",() => {
    document.querySelectorAll("iconsList").hidden = true;
    document.getElementById("maxGuesses").innerHTML = 5;
    result.innerText = "";
-   document.getElementById("sprite").src = "";
+   document.getElementById("sprite").style.display = "none";
    document.getElementById("check-btn").disabled = false;
    document.getElementById("text-input").value = "";
    document.getElementById("currentGuess").value = "";
