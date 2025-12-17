@@ -2911,11 +2911,12 @@ checkButton.addEventListener("click",() => {
      document.getElementById("type-2").hidden = false;
      document.getElementById("height").hidden = false;
      document.getElementById("weight").hidden = false;
+     document.getElementById("gen").hidden = false;
      currentGuess.innerHTML += "<div class='guess'>" + `${textArr}` + "</div>" + '\n';
      currentType1.innerHTML += "<div class='guess'>" + `${currentPokemon.types[0]}` + " " + "(✓)" + "</div>";
      currentType2.innerHTML += "<div class='guess'>" + `${currentPokemon.types[1]}` + " " + "(✓)" + "</div>";
-     currentHeight.innerHTML += "<div class='guess'>" + `${currentPokemon.height}` + `m` + "</div>";
-     currentWeight.innerHTML += "<div class='guess'>" + `${currentPokemon.weight}` + `kg` + "</div>";
+     currentHeight.innerHTML += "<div class='guess'>" + `${currentPokemon.height}` + `m` + "(✓)" + "</div>";
+     currentWeight.innerHTML += "<div class='guess'>" + `${currentPokemon.weight}` + `kg` + "(✓)" + "</div>";
      currentGen.innerHTML += "<div class='guess'>" + `${currentPokemon.generation}` + "(✓)" + "</div>";
      
    for (let i = 0; i < iconsList.length; i++) {
