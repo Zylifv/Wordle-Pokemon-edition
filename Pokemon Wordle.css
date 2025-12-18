@@ -518,7 +518,7 @@ input:focus {
   transform: translate(-50%, 0);
   grid-template-columns: repeat(6, 1fr);
   gap: 1px;
-  padding-top: 150px;
+  padding-top: 180px;
   align-items: center;
   z-index: 3;
 }
