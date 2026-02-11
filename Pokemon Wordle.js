@@ -2823,6 +2823,26 @@ const pokemonNames = option.map(o => {
       return `<div class="poke_choices" id="${o.name}"><b style="font-size: 18px;">${o.name}</b><br>${o.types[0]}, ${o.types[1]}, Height: ${o.height}m, Weight: ${o.weight}kg</div>`;
       });
 
+
+//creates a div for each element of the pokemon that is used when determining the correct one and implements best practice instead of innerHTML which is vulnerable to script attacks
+let currentGuessDiv = document.createElement("div");
+    currentGuessDiv.classList.add("guess");
+
+let currentTypeOneDiv = document.createElement("div");
+     currentTypeOneDiv.classList.add("guess");
+
+let currentTypeTwoDiv = document.createElement("div");
+     currentTypeTwoDiv.classList.add("guess");
+
+let currentHeightDiv = document.createElement("div");
+     currentHeightDiv.classList.add("guess");
+
+let currentWeightDiv = document.createElement("div");
+     currentWeightDiv.classList.add("guess");
+
+let currentGenDiv = document.createElement("div");
+     currentGenDiv.classList.add("guess");
+
 //small design checks to make it easier to follow which options are currently available.
 checkButton.disabled = true;
 checkButton.style.opacity = "0.5";
@@ -2841,7 +2861,7 @@ function pokemonOptions() {
   let num = genChecker();
   options = option.filter((el) => el.generation <= genChecker());
   remainGuesses = (maxGuesses + num) - 1;
-  document.getElementById("maxGuesses").innerHTML = maxGuesses + num;
+  document.getElementById("maxGuesses").textContent = maxGuesses + num;
   console.log(options.length);
 }
 
@@ -2858,18 +2878,15 @@ function startNewGame() {
   result.style.backgroundColor = "";
   result.style.border = "";
   currentGenCheck.disabled = true;
+  document.getElementById("sprite").style.display = "none";
   pokemonOptions(); //assigns what pokemon go into the options array based on the generation picked
- //CHEATSHEET:
- //Gen1 - 151
- //Gen1to2 - 251
- //Gen1to3 - 386
   let pType1 = [...new Set(options.flatMap((o) => [o.types[0]]))]
   let pType2 = [...new Set(options.flatMap((o) => [o.types[1]]))]
   let poke = options[Math.floor(Math.random() * options.length)]; //assigns a new pokemon to be guessed  
   currentPokemon = poke;
   currentPokemonName = currentPokemon.name;
   spriteVal = options.map(e => e.name).indexOf(currentPokemonName) + 1;
-  document.getElementById("sprite").src = `https://github.com/PokeAPI/sprites/blob/master/sprites/pokemon/${spriteVal}.png?raw=true`;
+  document.getElementById("sprite").src = `https://github.com/PokeAPI/sprites/blob/master/sprites/pokemon/${spriteVal}.png?raw=true`
   activeType1 = currentPokemon.types[0];
   activeType2 = currentPokemon.types[1];
   activeHeight = currentPokemon.height;
@@ -2907,17 +2924,28 @@ checkButton.addEventListener("click",() => {
      startBtn.style.opacity = "1.0";
      checkButton.style.opacity = "0.5";
      currentGenCheck.disabled = false;
-     document.getElementById("type-1").hidden = false;
-     document.getElementById("type-2").hidden = false;
-     document.getElementById("height").hidden = false;
-     document.getElementById("weight").hidden = false;
-     document.getElementById("gen").hidden = false;
-     currentGuess.innerHTML += "<div class='guess'>" + `${textArr}` + "</div>" + '\n';
-     currentType1.innerHTML += "<div class='guess'>" + `${currentPokemon.types[0]}` + " " + "(✓)" + "</div>";
-     currentType2.innerHTML += "<div class='guess'>" + `${currentPokemon.types[1]}` + " " + "(✓)" + "</div>";
-     currentHeight.innerHTML += "<div class='guess'>" + `${currentPokemon.height}` + `m` + "(✓)" + "</div>";
-     currentWeight.innerHTML += "<div class='guess'>" + `${currentPokemon.weight}` + `kg` + "(✓)" + "</div>";
-     currentGen.innerHTML += "<div class='guess'>" + `${currentPokemon.generation}` + "(✓)" + "</div>";
+  
+     for (const child of document.getElementsByClassName("icons-sub-icon")) {child.hidden = false;}
+
+     //uses parent & child element relationships to update the game instead of innerHTML
+     currentGuessDiv.textContent = `${textArr} \n`
+     currentGuess.appendChild(currentGuessDiv);
+     
+     currentTypeOneDiv.textContent = `${currentPokemon.types[0]} (✓) \n`
+     currentType1.appendChild(currentTypeOneDiv);
+     
+     currentTypeTwoDiv.textContent = `${currentPokemon.types[1]} (✓) \n`
+     currentType2.appendChild(currentTypeTwoDiv);
+     
+     currentHeightDiv.textContent = `${currentPokemon.height}m (✓) \n`
+     currentHeight.appendChild(currentHeightDiv);
+     
+     currentWeightDiv.textContent = `${currentPokemon.weight}kg (✓) \n`
+     currentWeight.appendChild(currentWeightDiv);
+     
+     currentGenDiv.textContent = `${currentPokemon.generation} (✓) \n`
+     currentGen.appendChild(currentGenDiv);
+
      
    for (let i = 0; i < iconsList.length; i++) {
      if (activeType1 !== iconsList[i] && activeType2 !== iconsList[i]) {
@@ -2936,7 +2964,7 @@ checkButton.addEventListener("click",() => {
          result.style.border = "2px solid #fff";
        }
      }
-     document.getElementById("maxGuesses").innerHTML = 0;
+     document.getElementById("maxGuesses").textContent = 0;
      document.getElementById("check-btn").disabled = true;
      textInput.disabled = true;
      startBtn.disabled = false;
@@ -2968,17 +2996,32 @@ checkButton.addEventListener("click",() => {
       //Using a ternary conditional operator to make conditions for each outcome.
           
        //will update each of the categories depending on whether or not that particular guess is right or not.
-        document.getElementById("type-1").hidden = false;
-        document.getElementById("type-2").hidden = false;
-        document.getElementById("height").hidden = false;
-        document.getElementById("weight").hidden = false;
-        document.getElementById("gen").hidden = false;
-        currentGuess.innerHTML += "<div class='guess'>" + `${textArr}` + "</div>" + '\n';
-        currentType1.innerHTML += "<div class='guess'>" + `${type1}` + "</div>" + '\n';
-        currentType2.innerHTML += "<div class='guess'>" + `${type2}` + "</div>" + '\n';
-        currentHeight.innerHTML += "<div class='guess'>" + `${height}` + "</div>" + '\n';
-        currentWeight.innerHTML += "<div class='guess'>" + `${weight}` + "</div>" + '\n';
-        currentGen.innerHTML += "<div class='guess'>" + `${gen}` + "</div>" + '\n';
+        for (const child of document.getElementsByClassName("icons-sub-icon")) {child.hidden = false;}
+          
+   
+        let currentGuessClone = currentGuessDiv.cloneNode();
+        currentGuessClone.textContent = `${textArr}` + "\n";
+        currentGuess.appendChild(currentGuessClone);
+     
+        let currentTypeOneClone = currentTypeOneDiv.cloneNode();
+        currentTypeOneClone.textContent = `${type1}` + "\n";
+        currentType1.appendChild(currentTypeOneClone);
+     
+        let currentTypeTwoClone = currentTypeTwoDiv.cloneNode();
+        currentTypeTwoClone.textContent = `${type2}` + "\n";
+        currentType2.appendChild(currentTypeTwoClone);
+     
+        let currentHeightClone = currentHeightDiv.cloneNode();
+        currentHeightClone.textContent = `${height}` + "\n";
+        currentHeight.appendChild(currentHeightClone);
+     
+        let currentWeightClone = currentWeightDiv.cloneNode();
+        currentWeightClone.textContent = `${weight}` + "\n";
+        currentWeight.appendChild(currentWeightClone);
+     
+        let currentGenClone = currentGenDiv.cloneNode();
+        currentGenClone.textContent = `${gen}` + "\n";
+        currentGen.appendChild(currentGenClone);
 
         for (let i = 0; i < iconsList.length; i++) {
           let currentPokemonGuess = options.find(({name}) => name === textArr);
@@ -2986,9 +3029,9 @@ checkButton.addEventListener("click",() => {
           let currentPokemonGuessTypesInfo = JSON.parse(currentPokemonGuessInfo);
           let currentPokemonGuessType1 = currentPokemonGuessTypesInfo.types[0];
           let currentPokemonGuessType2 = currentPokemonGuessTypesInfo.types[1];
-//Shows Object OBJECT string info of current guess.
-//JSON.stringify takes all elements and puts them into a string so the code can read it
-//JSON.parse converts text into a readable JS object but using .types[x] i am able to target specific info     
+        //Shows Object OBJECT string info of current guess.
+        //JSON.stringify takes all elements and puts them into a string so the code can read it
+        //JSON.parse converts text into a readable JS object but using .types[x] i am able to target specific info     
      
        if (currentPokemonGuessType1 == activeType2 && currentPokemonGuessType1 == iconsList[i]) {
       typeIcons[i].style.backgroundColor = "";
@@ -3001,9 +3044,9 @@ checkButton.addEventListener("click",() => {
         }  //Will update the types to show that the types of an incorrect guess are not relevant, visually accessible
             else if (currentPokemonGuessType2 !== activeType2 && currentPokemonGuessType2 == iconsList[i]) {
             typeIcons[i].style.backgroundColor = "Grey";
-          }  //Will update the types to show that the types of an incorrect guess are not relevant, visually accessible
+          }
         }    
-            document.getElementById("maxGuesses").innerHTML = remainGuesses;
+            document.getElementById("maxGuesses").textContent = remainGuesses;
             remainGuesses -= 1; //lowers max guesses by 1
             document.getElementById("text-input").value = "";
           }
@@ -3012,8 +3055,7 @@ checkButton.addEventListener("click",() => {
   });//above code checks and updates the relevant info according to each guess
   
 
-  function resetGame() {    // resets all parameters for a fresh game.
- 
+ function resetGame() {    // resets all parameters for a fresh game.
    startBtn.style.opacity = "1.0";
    startBtn.disabled = false;
    checkButton.disabled = true;
@@ -3024,17 +3066,13 @@ checkButton.addEventListener("click",() => {
    result.style.border = "";
    currentGenCheck.disabled = false;
    document.querySelectorAll("iconsList").hidden = true;
-   document.getElementById("maxGuesses").innerHTML = 5;
+   document.getElementById("maxGuesses").textContent = 5;
    result.innerText = "";
-   document.getElementById("sprite").style.display = "none";
+   document.getElementById("sprite").src = "";
    document.getElementById("check-btn").disabled = false;
    document.getElementById("text-input").value = "";
    document.getElementById("currentGuess").value = "";
-   document.getElementById("type-1").hidden = true;
-   document.getElementById("type-2").hidden = true;
-   document.getElementById("height").hidden = true;
-   document.getElementById("weight").hidden = true;
-   document.getElementById("gen").hidden = true;
+   for (const child of document.getElementsByClassName("icons-sub-icon")) {child.hidden = true;}
    remainGuesses = 4;
    currentType1.innerText = "";
    currentType2.innerText = "";
@@ -3054,11 +3092,11 @@ myList.addEventListener("click", (e) => {
    const id = e.target.id;
    textInput.value = id;
    myList.style.display = "none";
-  }   /*targets all valid items with the matching className, takes their id to apply & style them dynamically, this allows the user to click the box with their desired pokemon name instead of having to type the whole word out.*/
+  }
+  /*targets all valid items with the matching className, takes their id to apply & style them dynamically, this allows the user to click the box with their desired pokemon name instead of having to type the whole word out.*/
 })
 
 function datalistMatch(e) {   //This checks for any Pokemon name that matches what the user types and updates the dropdown list options in real time.
-  //pokemonOptions();
   let a = document.createElement("div");
   for (let i = 0; i < options.length; i++) {
     let dropdown = document.createElement("div");
